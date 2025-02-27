@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-64044.htm" />
+    <meta charset="utf-8">
+    <title>C语言进阶——数据的存储</title>
+        <meta name="description" content="目录  一.&nbsp; &nbsp;数据类型 二.&nbsp; &nbsp;整形在内存中的存储 1.原码、反码、补码 2.大小端 三.&nbsp; &nbsp;&nbsp;浮点型在内存中的存储&nb" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-64044.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="C语言进阶——数据的存储" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/6b6d8c773df30379529a79fdb44a8f36.webp" />
+        <meta property="og:release_date" content="2025-02-27T05:56:45" />
+    <meta property="og:updated_time" content="2025-02-27T05:56:45" />
+        <meta property="og:description" content="目录  一.&nbsp; &nbsp;数据类型 二.&nbsp; &nbsp;整形在内存中的存储 1.原码、反码、补码 2.大小端 三.&nbsp; &nbsp;&nbsp;浮点型在内存中的存储&nb" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="C语言进阶——数据的存储">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>C语言进阶——数据的存储</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p id="main-toc"><strong>目录</strong></p> <p id="-toc" style="margin-left:0px;"> <p id="%E4%B8%80.%C2%A0%20%C2%A0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-toc" style="margin-left:0px;"><a href="#%E4%B8%80.%C2%A0%20%C2%A0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" rel="nofollow">一.&nbsp; &nbsp;数据类型</a></p> <p id="%E4%BA%8C.%C2%A0%20%C2%A0%E6%95%B4%E5%BD%A2%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8-toc" style="margin-left:0px;"><a href="#%E4%BA%8C.%C2%A0%20%C2%A0%E6%95%B4%E5%BD%A2%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8" rel="nofollow">二.&nbsp; &nbsp;整形在内存中的存储</a></p> <p id="1.%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81-toc" style="margin-left:40px;"><a href="#1.%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81" rel="nofollow">1.原码、反码、补码</a></p> <p id="2.%E5%A4%A7%E5%B0%8F%E7%AB%AF-toc" style="margin-left:40px;"><a href="#2.%E5%A4%A7%E5%B0%8F%E7%AB%AF" rel="nofollow">2.大小端</a></p> <p id="%E4%B8%89.%C2%A0%20%C2%A0%C2%A0%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8%C2%A0-toc" style="margin-left:0px;"><a href="#%E4%B8%89.%C2%A0%20%C2%A0%C2%A0%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%9C%A8%E5%86%85%E5%AD%98%E4%B8%AD%E7%9A%84%E5%AD%98%E5%82%A8%C2%A0" rel="nofollow">三.&nbsp; &nbsp;&nbsp;浮点型在内存中的存储&nbsp;</a></p> <p id="%E5%AD%98%E5%82%A8-toc" style="margin-left:40px;"><a href="#%E5%AD%98%E5%82%A8" rel="nofollow">存储</a></p> <p id="%E5%8F%96%E5%87%BA-toc" style="margin-left:40px;"><a href="#%E5%8F%96%E5%87%BA" rel="nofollow">取出</a></p> <hr id="hr-toc"/> </h1> <p>在前面，我们已经学过一些基本的内置类型</p> <p>char——字符数据类型</p> <p>short——短整型</p> <p>int——整形</p> <p>long——长整形</p> <p>long long——更长的整形</p> <p>float——单精度浮点数</p> <p>double——双精度浮点数</p> <p>而除开这些基本类型，数据类型还包括</p> <p><strong>构造类型：</strong></p> <p>数组类型<br /> 结构体类型 struct<br /> 枚举类型 enum<br /> 联合类型 union</p> <p><strong>指针类型：</strong></p> <p><strong>空类型：</strong></p> <p>void表示空类型，通常应用于函数的返回类型、函数的参数、指针类型<br /> 而作为指针类型时（void*），表示无具体类型的指针</p> <hr/> <hr/> </h1> <h2 id="1.%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81">1.原码、反码、补码</h2> <p style="margin-left:0;text-align:justify;">计算机中的有符号整形有三种表示方法，即原码、反码和补码。</p> <p style="margin-left:0;text-align:justify;">三种表示方法均有符号位和数值位两部分，符号位都是用0表示"正”，用1表示"负”，而数值位三种表示方法各不相同。</p> <p style="margin-left:0;text-align:justify;">无符号、正数:原码、反码、补码相同</p> <p style="margin-left:0;text-align:justify;">负数</p> <p style="margin-left:0;text-align:justify;"><strong>原码</strong><br /> 直接将数值按照正负数的形式翻译成二进制就可以得到原码。</p> <p style="margin-left:0;text-align:justify;"><strong>反码</strong><br /> 将原码的符号位不变，其他位依次按位取反就可以得到反码。</p> <p style="margin-left:0;text-align:justify;"><strong>补码</strong><br /> 反码+1就得到补码。</p> <p style="margin-left:0;text-align:justify;"> <p style="margin-left:0;text-align:justify;">对于整形来说︰数据存放内存中其实存放的是补码。</p> <p style="margin-left:0;text-align:justify;">在计算机系统中，数值一律用补码来表示和存储。原因在于，使用补码，可以将符号位和数值域统<br /> 一处理；<br /> 同时，加法和减法也可以统一处理（CPU只有加法器）此外，补码与原码相互转换，其运算过程<br /> 是相同的，不需要额外的硬件电路。</p> <p style="margin-left:0;text-align:justify;"> <p style="margin-left:0;text-align:justify;">例如</p> <pre><code class="language-cpp">unsigned int i=10; int j=-20; printf("%d",i+j);</code></pre> <p style="margin-left:0;text-align:justify;">我们可以得到</p> <p style="margin-left:0;text-align:justify;">i的补码为00000000&nbsp;00000000&nbsp;00000000&nbsp;00001010</p> <p style="margin-left:0;text-align:justify;">j的补码为11111111&nbsp;11111111&nbsp;11111111&nbsp;11101100</p> <p style="margin-left:0;text-align:justify;">相加后得到11111111&nbsp;11111111&nbsp;11111111 11110110</p> <p style="margin-left:0;text-align:justify;">转化为整形便是-10；</p> <p style="margin-left:0;text-align:justify;"><img fetchpriority="high" decoding="async" alt="" height="182" src="http://img.555519.xyz/uploads/20230203/5a47e16b56bf4e2173d82a953f829432.jpg"></p> <p>&nbsp;</p> <p style="margin-left:0;text-align:justify;">而在进行类型转换的时候，要对补码进行截断或补位处理</p> <p style="margin-left:0;text-align:justify;">而补位时，有符号则补符号位，无符号则补0；</p> <p style="margin-left:0;text-align:justify;">例如</p> <pre><code class="language-cpp">char a=128; printf("%d",a);</code></pre> <p>首先，128为整形数据，默认为4个字节。</p> <p>其补码为 00000000 00000000 00000000 10000000；</p> <p>而将其赋给字符变量a时，要进行截断处理，即10000000；</p> <p>在我们使用的vs中，char默认为有符号，因此头部的1为符号位。</p> <p>而a作为整形打印时，由于符号位为1，在前面补1</p> <p>11111111&nbsp;11111111&nbsp;11111111&nbsp;10000000</p> <p>作为整形打印-128</p> <p><img decoding="async" alt="" height="151" src="http://img.555519.xyz/uploads/20230203/cc8de8a830a726d761f316310c71cbb5.jpg"></p> <hr/> <h2 id="2.%E5%A4%A7%E5%B0%8F%E7%AB%AF">2.大小端</h2> <p>大端（存储）模式，是指数据的低位保存在内存的高地址中，而数据的高位，保存在内存的低地址<br /> 中；<br /> 小端（存储）模式，是指数据的低位保存在内存的低地址中，而数据的高位，保存在内存的高地<br /> 址中。</p> <p><strong>为什么会有大小端模式之分呢？</strong></p> <blockquote> <p>这是因为在计算机系统中，我们是以字节为单位的，每个地址单元都对应着一个字节，一个字节为8 bit。但是在C语言中除了8 bit的char之外，还有16 bit的short型，32 bit的long型（要看具体的编译器），另外，对于位数大于8位的处理器，例如16位或者32位的处理器，由于寄存器宽度大于一个字节，那么必然存在着一个如何将多个字节安排的问题。因此就导致了大端存储模式和小端存储模式。<br /> 例如：一个 16bit 的 short 型 x ，在内存中的地址为 0x0010 ， x 的值为 0x1122 ，那么 0x11 为高字节， 0x22 为低字节。对于大端模式，就将 0x11 放在低地址中，即 0x0010 中， 0x22 放在高地址中，即 0x0011 中。小端模式，刚好相反。我们常用的 X86 结构是小端模式，而 KEIL C51 则为大端模式。很多的ARM，DSP都为小端模式。有些ARM处理器还可以由硬件来选择是大端模式还是小端模式。</p> </blockquote> <p>例如在vs环境下</p> <p><img decoding="async" alt="" height="176" src="http://img.555519.xyz/uploads/20230203/bf1b70f52b3f7b59925f5cc71d1b6ca2.jpg"></p> <p>&nbsp;当我们查看i的地址时，存储为01 00 00 00（16进制表示），而i的补码为 00 00 00 01</p> <p>因此我们可以知道这是小端存储。</p> <p>而顺序并非完全相反，这是因为存储时是以字节为单位。</p> <p>而我们也可以利用这个特性来写一段代码判断是大端还是小端。</p> <p>我们依然可以利用上面的i；小端存储时，i为 01 00 00 00 而大端则为 00 00 00 01</p> <p>因此我们可以通过判断第一个字节的数据来判断</p> <pre><code class="language-cpp">int main() { 	int i = 1; 	if (*(char*)&amp;i) 		printf("小端\n"); 	else 		printf("大端\n"); 	return 0; }</code></pre> <p><img loading="lazy" decoding="async" alt="" height="224" src="http://img.555519.xyz/uploads/20230203/83e6233224129d4625b90a3b09a427a6.jpg"></p> <hr/> <hr/> </h1> <h2 id="%E5%AD%98%E5%82%A8">存储</h2> <p>所有的浮点数都可以表示为&nbsp; &nbsp; (-1)^S * M * 2^E</p> <p>其中&nbsp; &nbsp;(-1)^S表示符号位，S为0或1&nbsp; &nbsp;M表示有效数字，大于等于1，小于2&nbsp; &nbsp; &nbsp;2^E表示指数位。</p> <p>例如5.5</p> <p>二进制表示为101.1</p> <p>转化为对应格式为 (-1)^0*1.011*2^2&nbsp; &nbsp; &nbsp;其中S为0，M为1.011，E为2</p> <p>而float类型最高1位为S，后面8位为E，最后23位为M</p> <p>double类型最高1位为S，后面11位为E，最后52位为M</p> <p>以float类型为例</p> <p>S原样存储&nbsp; &nbsp; &nbsp;由于E可能为负数，因此将E加上127后存储&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 而M固定范围大于等于1小于2，因此只需要存储小数部分，若是M存储后还有空间则补0</p> <p>例如5.5 存储后为1 00000010 01100000000000000000000</p> <hr/> <h2 id="%E5%8F%96%E5%87%BA">取出</h2> <p>当E全为1时，表示指数位为2^128，因此可以直接表示为正负无穷大（取决于符号位）</p> <p>而当E全为0时，表示指数位为2^-126，非常接近0，因此不再加上E的整数部分1，而是作为小于1的小数表示正负0或者接近0的数。</p> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-63431.htm">宠物狗粮销售招聘要求（狗粮招聘业务）</a></p>
+                                        <p>下一个：<a href="/news/article-64045.htm">mysql ifnull判断null与空值</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-6-node-share-links.htm" title="VPN美国 | 2月6日22M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">VPN美国 | 2月6日22M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-17-node-share-links.htm" title="免费机场 | 2月17日20.4M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">免费机场 | 2月17日20.4M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-62247.htm" title="纯手工宠物零食需要办理什么证件（手工宠物零食好卖吗）">纯手工宠物零食需要办理什么证件（手工宠物零食好卖吗）</a></li>
+                        <li class="py-2"><a href="/news/article-58821.htm" title="宠物粮食多少钱一袋（宠物粮食多少钱一袋合适）">宠物粮食多少钱一袋（宠物粮食多少钱一袋合适）</a></li>
+                        <li class="py-2"><a href="/news/article-58822.htm" title="动物疫苗属于疫苗吗知乎 动物疫苗属于疫苗吗知乎">动物疫苗属于疫苗吗知乎 动物疫苗属于疫苗吗知乎</a></li>
+                        <li class="py-2"><a href="/news/article-59898.htm" title="mybatis idea多级目录的坑">mybatis idea多级目录的坑</a></li>
+                        <li class="py-2"><a href="/news/article-55935.htm" title="领养宠物的含义是什么（领养宠物的好处与坏处）">领养宠物的含义是什么（领养宠物的好处与坏处）</a></li>
+                        <li class="py-2"><a href="/news/article-58179.htm" title="动物疫苗的制备流程（动物疫苗的生产工艺流程）">动物疫苗的制备流程（动物疫苗的生产工艺流程）</a></li>
+                        <li class="py-2"><a href="/news/article-53200.htm" title="宠物粮品牌起名字大全集图片（宠物粮品牌起名字大全集图片及寓意）">宠物粮品牌起名字大全集图片（宠物粮品牌起名字大全集图片及寓意）</a></li>
+                        <li class="py-2"><a href="/news/article-57607.htm" title="前端开发中需要搞懂的字符编码知识_在线工具">前端开发中需要搞懂的字符编码知识_在线工具</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">64</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
