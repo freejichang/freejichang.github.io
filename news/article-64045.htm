@@ -126,6 +126,7 @@
                   				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>最近遇到一个需求上的问题，运用的数据库是Mysql，涉及到了ifnull函数。</p> <pre><code class="prism language-sql">ifnull（expr1，expr2）   如果expr1为<span class="token boolean">null</span>，则显示expr2<span class="token punctuation">,</span>否则显示expr1。 </code></pre> <p>举个例子：<br /><img decoding="async" src="http://img.555519.xyz/uploads/20230118/4fd85cbd3ac48e35cae21a6da20b47fe.jpg" alt="mysql ifnull判断null与空值"></p> <pre><code class="prism language-sql"><span class="token keyword">SELECT</span> IFNULL<span class="token punctuation">(</span>rcar_id<span class="token punctuation">,</span>rcar_id1<span class="token punctuation">)</span> <span class="token keyword">from</span> wb_busi_gross_rcar  <span class="token keyword">where</span> serial_no <span class="token operator">=</span> <span class="token string">'20000019122617250028'</span> </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230118/98cfa5cf0b138a23830aa172d6f958bc.jpg" alt="mysql ifnull判断null与空值"></p> <p><strong>1.如果两个都为null,结果为null。</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230118/ffe3f1c062512ae47917bd954c1a7307.jpg" alt="mysql ifnull判断null与空值"><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230118/a965ed6a85633a45961b89d83b0e22e1.jpg" alt="mysql ifnull判断null与空值"></p> <p><strong>2.如果为空（mysql区分null与空字符串），不受影响。</strong><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230118/bc43bedb46ea1bbc8043e1b32e624d4a.jpg" alt="mysql ifnull判断null与空值"><br /><img decoding="async" src="http://img.555519.xyz/uploads/20230118/2c3c1f74d5056d80c52689db077e14fe.jpg" alt="mysql ifnull判断null与空值"><br /> 所以这里需要把空转换为null，才能进行判断，下面给出一个方法。</p> <pre><code class="prism language-sql"><span class="token keyword">SELECT</span> ifnull<span class="token punctuation">(</span><span class="token keyword">case</span> <span class="token keyword">when</span> rcar_id <span class="token operator">=</span> <span class="token string">''</span> <span class="token keyword">then</span> <span class="token boolean">null</span> <span class="token keyword">else</span> rcar_id <span class="token keyword">end</span><span class="token punctuation">,</span><span class="token keyword">case</span> <span class="token keyword">when</span> rcar_id1 <span class="token operator">=</span> <span class="token string">''</span> <span class="token keyword">then</span> <span class="token boolean">null</span> <span class="token keyword">else</span> rcar_id1 <span class="token keyword">end</span><span class="token punctuation">)</span> rcar_id <span class="token keyword">from</span> wb_busi_gross_rcar  <span class="token keyword">where</span> serial_no <span class="token operator">=</span> <span class="token string">'20000019122617250028'</span>  </code></pre> <p><img decoding="async" src="http://img.555519.xyz/uploads/20230118/a4377ec3cadeeacab33177ffa2fb4024.jpg" alt="mysql ifnull判断null与空值"><br /> 记录下来，方便学习，如有错误之处，欢迎指正！</p> </p></div> 			                <div class="clearfix"></div>
                 <div class="col-md-12 mt-5">
                                         <p>上一个：<a href="/news/article-64044.htm">C语言进阶——数据的存储</a></p>
+                                        <p>下一个：<a href="/news/article-64658.htm">有人死于被猫抓伤吗（有人死于被猫抓伤吗）</a></p>
                                     </div>
                                     </div>
                     <div class="col-md-3">
@@ -135,16 +136,16 @@
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-57607.htm" title="前端开发中需要搞懂的字符编码知识_在线工具">前端开发中需要搞懂的字符编码知识_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-15-clash-v2ray-ss-ssr.htm" title="免费机场 | 2月15日20.1M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址">免费机场 | 2月15日20.1M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-58179.htm" title="动物疫苗的制备流程（动物疫苗的生产工艺流程）">动物疫苗的制备流程（动物疫苗的生产工艺流程）</a></li>
                         <li class="py-2"><a href="/news/article-62247.htm" title="纯手工宠物零食需要办理什么证件（手工宠物零食好卖吗）">纯手工宠物零食需要办理什么证件（手工宠物零食好卖吗）</a></li>
-                        <li class="py-2"><a href="/news/article-56485.htm" title="从线上环境摘取了四个代码优化记录分享给大家">从线上环境摘取了四个代码优化记录分享给大家</a></li>
-                        <li class="py-2"><a href="/news/article-54829.htm" title="济南宠物领养微信群 济南宠物领养微信群号">济南宠物领养微信群 济南宠物领养微信群号</a></li>
-                        <li class="py-2"><a href="/news/article-52836.htm" title="宠爱国际动物医疗中心地址（宠爱国际动物医院地址）">宠爱国际动物医疗中心地址（宠爱国际动物医院地址）</a></li>
-                        <li class="py-2"><a href="/news/article-57047.htm" title="中国动物疫苗网官网查询（中国动物疫苗厂家排名）">中国动物疫苗网官网查询（中国动物疫苗厂家排名）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-2-18-free-v2ray-subscribe.htm" title="免费机场 | 2月18日18M/S|免费VPN/Shadowrocket/SSR/Clash/V2ray免费节点链接地址">免费机场 | 2月18日18M/S|免费VPN/Shadowrocket/SSR/Clash/V2ray免费节点链接地址</a></li>
-                        <li class="py-2"><a href="/news/article-58821.htm" title="宠物粮食多少钱一袋（宠物粮食多少钱一袋合适）">宠物粮食多少钱一袋（宠物粮食多少钱一袋合适）</a></li>
-                        <li class="py-2"><a href="/free-nodes/2025-2-22-free-node-subscribe-links.htm" title="免费机场 | 2月22日20.5M/S|免费VPN/SSR/Clash/V2ray/Shadowrocket免费节点链接地址">免费机场 | 2月22日20.5M/S|免费VPN/SSR/Clash/V2ray/Shadowrocket免费节点链接地址</a></li>
-                        <li class="py-2"><a href="/news/article-53727.htm" title="[js] 回调函数 回调地狱 Promise async/await">[js] 回调函数 回调地狱 Promise async/await</a></li>
-                        <li class="py-2"><a href="/news/article-63430.htm" title="golang常用库包：Go依赖注入(DI)工具-wire使用">golang常用库包：Go依赖注入(DI)工具-wire使用</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-26-node-share.htm" title="免费机场 | 2月26日22.8M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址">免费机场 | 2月26日22.8M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-58180.htm" title="建议穷人养的10种便宜宠物（建议穷人养的10种便宜宠物蛇）">建议穷人养的10种便宜宠物（建议穷人养的10种便宜宠物蛇）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-24-clash-v2ray-ss-ssr.htm" title="免费机场 | 2月24日18.4M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址">免费机场 | 2月24日18.4M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-55379.htm" title="mac系统升级导致VirtualBox报Kernel driver not installed (rc=-1908)_在线工具">mac系统升级导致VirtualBox报Kernel driver not installed (rc=-1908)_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-11-node-share-links.htm" title="免费机场 | 2月11日22.8M/S|免费VPN/Shadowrocket/Clash/V2ray/SSR免费节点链接地址">免费机场 | 2月11日22.8M/S|免费VPN/Shadowrocket/Clash/V2ray/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-57608.htm" title="动物接种途径有哪些类型（动物接种应掌握哪些要点）">动物接种途径有哪些类型（动物接种应掌握哪些要点）</a></li>
                     </ul>
     </div>
 </div>
@@ -156,7 +157,7 @@
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">64</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+                <h4><span class="badge" style="float: right;">67</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
             </li>
                     </ul>
     </div>
