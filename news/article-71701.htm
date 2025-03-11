@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-71701.htm" />
+    <meta charset="utf-8">
+    <title>golang 中 sync.Mutex 的实现</title>
+        <meta name="description" content="mutex 的实现思想 mutex 主要有两个 method:Lock() 和Unlock() Lock() 可以通过一个 CAS 操作来实现 func (m *Mutex) Lock() { 	fo" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-71701.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="golang 中 sync.Mutex 的实现" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/cb833540afcf892396ccedd4ab559de9.webp" />
+        <meta property="og:release_date" content="2025-03-11T07:47:58" />
+    <meta property="og:updated_time" content="2025-03-11T07:47:58" />
+        <meta property="og:description" content="mutex 的实现思想 mutex 主要有两个 method:Lock() 和Unlock() Lock() 可以通过一个 CAS 操作来实现 func (m *Mutex) Lock() { 	fo" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="golang 中 sync.Mutex 的实现">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>golang 中 sync.Mutex 的实现</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<h4 id="mutex-的实现思想">mutex 的实现思想</h4> <p>mutex 主要有两个 method:<code>Lock()</code> 和<code>Unlock()</code></p> <p><code>Lock()</code> 可以通过一个 CAS 操作来实现</p> <pre><code class="language-go">func (m *Mutex) Lock() { 	for !atomic.CompareAndSwapUint32(&amp;m.locked, 0, 1) { 	} }  func (m *Mutex) Unlock() { 	atomic.StoreUint32(&amp;m.locked, 0) }</code></pre> <p>Lock() 一直进行 CAS 操作，比较耗 CPU。因此带来了一个优化：如果协程在一段时间内抢不到锁，可以把该协程挂到一个等待队列上，<code>Unlock()</code> 的一方除了更新锁的状态，还需要从等待队列中唤醒一个协程。</p> <p>但是这个优化会存在一个问题，如果一个协程从等待队列中唤醒后再次抢锁时，锁已经被一个新来的协程抢走了，它就只能再次被挂到等待队列中，接着再被唤醒，但又可能抢锁失败...... 这个悲催的协程可能会一直抢不到锁，由此产生饥饿 (starvation) 现象。</p> <p>饥饿现象会导致尾部延迟 (Tail Latency) 特别高。什么是尾部延迟？用一句话来说就是：<strong>最慢的特别慢！</strong></p> <p>如果共有 1000 个协程，假设 999 个协程可以在 1ms 内抢到锁，虽然平均时间才 2ms，但是最慢的那个协程却需要 1s 才抢到锁，这就是尾部延迟。</p> <h4 id="golang-中-mutex-的实现思想">golang 中 mutex 的实现思想</h4> <pre><code class="language-shell">➜  go version go version go1.16.5 darwin/arm64</code></pre> <p>本次阅读的 go 源码版本为 go1.16.5。</p> <p>golang 标准库里的 mutex 避免了饥饿现象的发生，先大致介绍一下 golang 的加锁和解锁流程，对后面的源码阅读有帮助。</p> <p>锁有两种 mode，分别是 normal mode 和 starvation mode。初始为 normal mode，当一个协程来抢锁时，依旧是做 CAS 操作，如果成功了，就直接返回，如果没有抢到锁，它会做一定次数的自旋操作，等待锁被释放，在自旋操作结束后，如果锁依旧没有被释放，那么这个协程就会被放到等待队列中。如果一个处于等待队列中的协程一直都没有抢到锁，mutex 就会从 normal mode 变成  starvation mode，在 starvation mode 下，当有协程释放锁时，这个锁会被直接交给等待队列中的协程，从而避免产生饥饿线程。</p> <p>除此之外，golang 还有一点小优化，当有协程正在自旋抢锁时，<code>Unlock()</code> 的一方不会从等待队列中唤醒协程，因为即使唤醒了，被唤醒的协程也抢不过正在自旋的协程。</p> <p>下面正式开始阅读源码。</p> <h4 id="mutex-的结构以及一些-const-常量值">mutex 的结构以及一些 const 常量值</h4> <pre><code class="language-go">type Mutex struct { 	state int32 	sema  uint32 }</code></pre> <pre><code class="language-go">const ( 	mutexLocked = 1 &lt;&lt; iota // mutex is locked 	mutexWoken				 	mutexStarving 	mutexWaiterShift = iota // 3  	// Mutex fairness. 	// 	// Mutex can be in 2 modes of operations: normal and starvation. 	// In normal mode waiters are queued in FIFO order, but a woken up waiter 	// does not own the mutex and competes with new arriving goroutines over 	// the ownership. New arriving goroutines have an advantage -- they are 	// already running on CPU and there can be lots of them, so a woken up 	// waiter has good chances of losing. In such case it is queued at front 	// of the wait queue. If a waiter fails to acquire the mutex for more than 1ms, 	// it switches mutex to the starvation mode. 	// 	// In starvation mode ownership of the mutex is directly handed off from 	// the unlocking goroutine to the waiter at the front of the queue. 	// New arriving goroutines don't try to acquire the mutex even if it appears 	// to be unlocked, and don't try to spin. Instead they queue themselves at 	// the tail of the wait queue. 	// 	// If a waiter receives ownership of the mutex and sees that either 	// (1) it is the last waiter in the queue, or (2) it waited for less than 1 ms, 	// it switches mutex back to normal operation mode. 	// 	// Normal mode has considerably better performance as a goroutine can acquire 	// a mutex several times in a row even if there are blocked waiters. 	// Starvation mode is important to prevent pathological cases of tail latency. 	starvationThresholdNs = 1e6 )</code></pre> <p>mutex 的状态是通过<code>state</code> 来维护的，<code>state</code> 有 32 个 bit。</p> <p>前面 29 个 bit 用来记录当前等待队列中有多少个协程在等待，将等待队列的协程数量记录为 waiterCount。</p> <pre><code class="language-go">state &gt;&gt; mutexWaiterShift // mutexWaiterShift 的值为 3</code></pre> <p>第 30 个 bit 表示当前 mutex 是否处于 starvation mode，将这个 bit 记为 starvationFlag。</p> <pre><code class="language-go">state &amp; mutexStarving</code></pre> <p>第 31 个 bit 表示当前是否有协程正在 (第一次) 自旋，将这个 bit 记为 wokenFlag，woken 的意思也就是醒着，代表它不在等待队列上睡眠。</p> <pre><code class="language-go">state &amp; mutexWoken</code></pre> <p>第 32 个 bit 表示当前锁是否被锁了  (感觉有点绕口哈哈) ，将这个 bit 记为 lockFlag。</p> <pre><code class="language-go">state &amp; mutexLocked</code></pre> <p>用一个图来表示这些 bit</p> <pre><code>0 0 0 0 0 0 0 0 ... 0 0				0			0                       |				|			| waiterCount     starvationFlag  wokenFlag   lockFlag</code></pre> <p><code>sema</code> 是一个信号量，它会被用来关联一个等待队列。</p> <p>分别讨论几种 case 下，代码的执行情况。</p> <h4 id="mutex-没有被锁住第一个协程来拿锁">Mutex 没有被锁住，第一个协程来拿锁</h4> <pre><code class="language-go">func (m *Mutex) Lock() { 	// Fast path: grab unlocked mutex. 	if atomic.CompareAndSwapInt32(&amp;m.state, 0, mutexLocked) { 		// ... 		return 	} 	// Slow path (outlined so that the fast path can be inlined) 	m.lockSlow() }</code></pre> <p>在 Mutex 没有被锁住时，state 的值为 0，此时第一个协程来拿锁时，由于 state 的值为 0，因此 CAS 操作会成功，CAS 操作之后的 state 的值变成 1 (lockFlag = 1) ，然后 return 掉，不会进入到<code>m.lockSlow()</code> 里面。</p> <h4 id="mutex-仅被协程-a-锁住没有其他协程抢锁协程-a-释放锁">Mutex 仅被协程 A 锁住，没有其他协程抢锁，协程 A 释放锁</h4> <pre><code class="language-go">func (m *Mutex) Unlock() { 	// ...  	// Fast path: drop lock bit. 	new := atomic.AddInt32(&amp;m.state, -mutexLocked) 	if new != 0 { 		// Outlined slow path to allow inlining the fast path. 		// To hide unlockSlow during tracing we skip one extra frame when tracing GoUnblock. 		m.unlockSlow(new) 	} }</code></pre> <p>紧接上面，state 的值为 1，<code>AddInt32(m.state,-1)</code> 之后，state 的值变成了 0  (lockFlag = 0) ，new 的值为 0，然后就返回了。</p> <h4 id="mutex-已经被协程-a-锁住协程-b-来拿锁">Mutex 已经被协程 A 锁住，协程 B 来拿锁</h4> <pre><code class="language-go">func (m *Mutex) Lock() { 	// Fast path: grab unlocked mutex. 	if atomic.CompareAndSwapInt32(&amp;m.state, 0, mutexLocked) { 		// ... 		return 	} 	// Slow path (outlined so that the fast path can be inlined) 	m.lockSlow() }</code></pre> <p>因为 state 的值不为 0，CompareAndSwapInt32 会返回 false，所以会进入到 lockSlow() 里面</p> <h5 id="lockslow">lockSlow()</h5> <p>首先看一下 lockSlow() 这个方法的全貌</p> <pre><code class="language-go">func (m *Mutex) lockSlow() { 	var waitStartTime int64 	starving := false 	awoke := false 	iter := 0 	old := m.state 	for { 		// Don't spin in starvation mode, ownership is handed off to waiters 		// so we won't be able to acquire the mutex anyway. 		if old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) { 			// Active spinning makes sense. 			// Try to set mutexwokenFlag to inform Unlock 			// to not wake other blocked goroutines. 			if !awoke &amp;&amp; old&amp;mutexWoken == 0 &amp;&amp; old&gt;&gt;mutexWaiterShift != 0 &amp;&amp; 				atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) { 				awoke = true 			} 			runtime_doSpin() 			iter++ 			old = m.state 			continue 		} 		new := old 		// Don't try to acquire starving mutex, new arriving goroutines must queue. 		if old&amp;mutexStarving == 0 { 			new |= mutexLocked 		} 		if old&amp;(mutexLocked|mutexStarving) != 0 { 			new += 1 &lt;&lt; mutexWaiterShift 		} 		// The current goroutine switches mutex to starvation mode. 		// But if the mutex is currently unlocked, don't do the switch. 		// Unlock expects that starving mutex has waiters, which will not 		// be true in this case. 		if starving &amp;&amp; old&amp;mutexLocked != 0 { 			new |= mutexStarving 		} 		if awoke { 			// The goroutine has been woken from sleep, 			// so we need to reset the flag in either case. 			if new&amp;mutexWoken == 0 { 				throw("sync: inconsistent mutex state") 			} 			new &amp;^= mutexWoken 		} 		if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 			if old&amp;(mutexLocked|mutexStarving) == 0 { 				break // locked the mutex with CAS 			} 			// If we were already waiting before, queue at the front of the queue. 			queueLifo := waitStartTime != 0 			if waitStartTime == 0 { 				waitStartTime = runtime_nanotime() 			} 			runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1) 			starving = starving || runtime_nanotime()-waitStartTime &gt; starvationThresholdNs 			old = m.state 			if old&amp;mutexStarving != 0 { 				// If this goroutine was woken and mutex is in starvation mode, 				// ownership was handed off to us but mutex is in somewhat 				// inconsistent state: mutexLocked is not set and we are still 				// accounted as waiter. Fix that. 				if old&amp;(mutexLocked|mutexWoken) != 0 || old&gt;&gt;mutexWaiterShift == 0 { 					throw("sync: inconsistent mutex state") 				} 				delta := int32(mutexLocked - 1&lt;&lt;mutexWaiterShift) 				if !starving || old&gt;&gt;mutexWaiterShift == 1 { 					// Exit starvation mode. 					// Critical to do it here and consider wait time. 					// Starvation mode is so inefficient, that two goroutines 					// can go lock-step infinitely once they switch mutex 					// to starvation mode. 					delta -= mutexStarving 				} 				atomic.AddInt32(&amp;m.state, delta) 				break 			} 			awoke = true 			iter = 0 		} else { 			old = m.state 		} 	}  	if race.Enabled { 		race.Acquire(unsafe.Pointer(m)) 	} }</code></pre> <h5 id="第一步-dospin-空转">第一步: doSpin (空转)</h5> <p>进入 for 循环后，会执行一个判断</p> <pre><code class="language-go">for {     // Don't spin in starvation mode, ownership is handed off to waiters     // so we won't be able to acquire the mutex anyway.     if old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) {         // Active spinning makes sense.         // Try to set mutexwokenFlag to inform Unlock         // to not wake other blocked goroutines.         if !awoke &amp;&amp; old&amp;mutexWoken == 0 &amp;&amp; old&gt;&gt;mutexWaiterShift != 0 &amp;&amp;         atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) {             awoke = true         }         runtime_doSpin()         iter++         old = m.state         continue     }     // ... }</code></pre> <p><code>runtime_canSpin(iter)</code> 的作用是根据 iter 的值判断自否应该自旋下去。 (这个方法的实现可以在后面看到)</p> <p>最初的几次判断，由于 iter 的值为 0，runtime_canSpin(iter) 会返回 true。因此</p> <pre><code class="language-go">if old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter)</code></pre> <p>这个判断会一直通过，由于<code>old&gt;&gt;mutexWaiterShift = 0</code> (waiterCount = 0) ，不满足第二个判断的条件，因此不会执行 CAS 操作和<code>awoke = true</code>。</p> <p>接着就是执行<code>runtime_doSpin()</code> 了，<code>runtime_doSpin()</code> 会进行一些空循环，消耗了一下 CPU 时间，然后就通过<code>continue</code>  进入到下一次循环了。 (<code>runtime_doSpin</code>具体实现也可以在后面看到)</p> <p>看到看到，这段代码不是用来抢锁的，而是用来等锁变成 unlock 状态的，它会空转一定的次数，期待在空转的过程中，锁被其他的协程释放。</p> <h6 id="runtime_dospin">runtime_doSpin()</h6> <pre><code class="language-go">// src/runtime/lock_sema.go const active_spin_cnt = 30 //go:linkname sync_runtime_doSpin sync.runtime_doSpin //go:nosplit func sync_runtime_doSpin() { 	procyield(active_spin_cnt) }</code></pre> <pre><code class="language-asm"># /src/runtime/asm_amd64.s TEXT runtime·procyield(SB),NOSPLIT,$0-0 	MOVL	cycles+0(FP), AX again: 	PAUSE 	SUBL	$1, AX 	JNZ	again 	RET</code></pre> <p><code>procyield()</code> 会循环执行<code>PAUSE</code> 指令。</p> <h6 id="runtime_canspin">runtime_canSpin()</h6> <p>runtime_canSpin() 的实现在 src/runtime/proc.go 里面，里面的判断比较多，但是我们只需要关注<code>i &gt;= active_spin</code> 这一个判断就行。</p> <pre><code class="language-go">const active_spin     = 4 // Active spinning for sync.Mutex. //go:linkname sync_runtime_canSpin sync.runtime_canSpin //go:nosplit func sync_runtime_canSpin(i int) bool { 	// sync.Mutex is cooperative, so we are conservative with spinning. 	// Spin only few times and only if running on a multicore machine and 	// GOMAXPROCS&gt;1 and there is at least one other running P and local runq is empty. 	// As opposed to runtime mutex we don't do passive spinning here, 	// because there can be work on global runq or on other Ps. 	if i &gt;= active_spin || ncpu &lt;= 1 || gomaxprocs &lt;= int32(sched.npidle+sched.nmspinning)+1 { 		return false 	} 	if p := getg().m.p.ptr(); !runqempty(p) { 		return false 	} 	return true }</code></pre> <blockquote> <p>一个小插曲</p> <p>在利用断点来 debug 时，发现没办法 watch sync_runtime_canSpin() 内引用的一些全局变量，例如<code>active_spin</code>,<code>ncpu</code>,<code>sched.npidle</code> 这些，所以我就大力出奇迹，强行修改源码在里面声明了几个局部变量，这下可以通过 watch 局部变量来得知全局变量的值了 (机智如我哈哈) 。</p> <pre><code class="language-go">func sync_runtime_canSpin(i int) bool { 	local_active_spin := active_spin 	local_ncpu := ncpu 	local_gomaxprocs := gomaxprocs 	npidle := sched.npidle 	nmspinning := sched.nmspinning 	if i &gt;= local_active_spin || local_ncpu &lt;= 1 ||local_gomaxprocs &lt;= int32(npidle+nmspinning)+1 { 		return false 	} 	if p := getg().m.p.ptr(); !runqempty(p) { 		return false 	} 	return true }</code></pre> </blockquote> <h5 id="第二步-根据旧状态来计算新状态">第二步: 根据旧状态来计算新状态</h5> <pre><code class="language-go">new := old // Don't try to acquire starving mutex, new arriving goroutines must queue. if old&amp;mutexStarving == 0 {     new |= mutexLocked } if old&amp;(mutexLocked|mutexStarving) != 0 {     new += 1 &lt;&lt; mutexWaiterShift } // The current goroutine switches mutex to starvation mode. // But if the mutex is currently unlocked, don't do the switch. // Unlock expects that starving mutex has waiters, which will not // be true in this case. if starving &amp;&amp; old&amp;mutexLocked != 0 {     new |= mutexStarving } if awoke {     // The goroutine has been woken from sleep,     // so we need to reset the flag in either case.     // ...     new &amp;^= mutexWoken }</code></pre> <p>这一段代码，是根据 old state 来计算 new state，有 4 个操作</p> <ul> <li>set lockFlag:<code>new |= mutexLocked</code></li> <li>增加 waiterCount:<code>new += 1 &lt;&lt; mutexWaiterShift</code></li> <li>set starvationFlag:<code>new |= mutexStarving</code></li> <li>clear wokenFlag:<code>new &amp;^= mutexWoken</code></li> </ul> <p>由于在这里我们只讨论 ”Mutex 已经被协程 A 锁住，协程 B 来拿锁“ 这种情况，可以分为两种 case</p> <ul> <li>case1: 在第一步自旋的过程中，锁已经被释放了，此时 old state =<code>000000...000</code>  (所有 bit 都为 0) ，经过这四个操作的洗礼后，lockFlag 被设置成了 1。</li> <li>case2: 在第一步自旋结束后，锁还没有被释放，即  old state 此时为<code>00000000...001</code> (仅 lockFlag 为 1)，经过这四个操作的洗礼后，waiterCounter = 1，lockFlag 也为 1。</li> </ul> <h5 id="第三步-更新-state-抢锁">第三步: 更新 state (抢锁)</h5> <pre><code class="language-go">if atomic.CompareAndSwapInt32(&amp;m.state, old, new) {     if old&amp;(mutexLocked|mutexStarving) == 0 {         break // locked the mutex with CAS     }     // ... } else {     old = m.state }</code></pre> <p>这一步会通过 CAS 操作将<code>mutex.state</code> 更新为我们刚刚计算得到的<code>new state</code>。如果 CAS 成功，且 old 处于未上锁的状态时，就直接利用 break 退出循环返回了 (也就是上面的 case1) 。如果 CAS 失败，将会更新 old state 的值，进行下一次循环，再重复一二三步；</p> <p>如果是 case2 的话，情况会稍微复杂一点</p> <pre><code class="language-go">if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 	// ...     // If we were already waiting before, queue at the front of the queue.     queueLifo := waitStartTime != 0     if waitStartTime == 0 {         waitStartTime = runtime_nanotime()     }          runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1)     // ... }</code></pre> <p>主要就是通过<code>runtime_SemacquireMutex()</code>  把自己放进了等待队列里面，之后 runtime 不会再调度该协程，直到协程被唤醒。</p> <p>关于<code>runtime_SemacquireMutex()</code>  的实现，我暂时就不追究下去了，再追究下去就没完没了啦。</p> <h4 id="mutex-被协程-a-锁住协程-b-来抢锁但失败被放入等待队列此时协程-a-释放锁">Mutex 被协程 A 锁住，协程 B 来抢锁但失败被放入等待队列，此时协程 A 释放锁</h4> <pre><code class="language-go">func (m *Mutex) Unlock() { 	// Fast path: drop lock bit. 	new := atomic.AddInt32(&amp;m.state, -mutexLocked) 	if new != 0 { 		// Outlined slow path to allow inlining the fast path. 		// To hide unlockSlow during tracing we skip one extra frame when tracing GoUnblock. 		m.unlockSlow(new) 	} }</code></pre> <p>紧接上回，最初 state 的值为<code>00000000000...0001001</code> (waiterCount = 1, lockFlag = 1)。执行完<code>AddInt32(&amp;m.state, -mutexLocked)</code>  后，变成了<code>0000...001000</code>   (waiterCount = 1) ，<code>new</code> 的值也为<code>0000...001000</code>，接着就进入到<code>unlockSlow</code> 里面了。</p> <h5 id="unlockslow">unlockSlow()</h5> <p>看看<code>unlockSlow()</code> 的全貌</p> <pre><code class="language-go">func (m *Mutex) unlockSlow(new int32) { 	if (new+mutexLocked)&amp;mutexLocked == 0 { 		throw("sync: unlock of unlocked mutex") 	} 	if new&amp;mutexStarving == 0 { 		old := new 		for { 			// If there are no waiters or a goroutine has already 			// been woken or grabbed the lock, no need to wake anyone. 			// In starvation mode ownership is directly handed off from unlocking 			// goroutine to the next waiter. We are not part of this chain, 			// since we did not observe mutexStarving when we unlocked the mutex above. 			// So get off the way. 			if old&gt;&gt;mutexWaiterShift == 0 || old&amp;(mutexLocked|mutexWoken|mutexStarving) != 0 { 				return 			} 			// Grab the right to wake someone. 			new = (old - 1&lt;&lt;mutexWaiterShift) | mutexWoken 			if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 				runtime_Semrelease(&amp;m.sema, false, 1) 				return 			} 			old = m.state 		} 	} else { 		// Starving mode: handoff mutex ownership to the next waiter, and yield 		// our time slice so that the next waiter can start to run immediately. 		// Note: mutexLocked is not set, the waiter will set it after wakeup. 		// But mutex is still considered locked if mutexStarving is set, 		// so new coming goroutines won't acquire it. 		runtime_Semrelease(&amp;m.sema, true, 1) 	} }</code></pre> <p>此时 old &gt;&gt; mutexWaiterShift =<code>0000...0001</code> ≠ 0, 所以不会直接返回</p> <pre><code class="language-go">old := new for {     // If there are no waiters or a goroutine has already     // been woken or grabbed the lock, no need to wake anyone.     // In starvation mode ownership is directly handed off from unlocking     // goroutine to the next waiter. We are not part of this chain,     // since we did not observe mutexStarving when we unlocked the mutex above.     // So get off the way.     if old&gt;&gt;mutexWaiterShift == 0 || old&amp;(mutexLocked|mutexWoken|mutexStarving) != 0 {         return     }     // Grab the right to wake someone.     new = (old - 1&lt;&lt;mutexWaiterShift) | mutexWoken     if atomic.CompareAndSwapInt32(&amp;m.state, old, new) {         runtime_Semrelease(&amp;m.sema, false, 1)         return     }     old = m.state }</code></pre> <p>接着计算 new =<code>0000...1000</code>  -<code>0000...1000</code> =<code>0000...0000</code>，waiterCount 由 1 变成了 0。之后进行 CAS 操作，如果 CAS 成功，则从等待队列中唤醒一个 goroutine。</p> <h4 id="mutex-被协程-a-锁住协程-b-来抢锁但失败被放入等待队列此时协程-a-释放锁协程-b-被唤醒">Mutex 被协程 A 锁住，协程 B 来抢锁但失败被放入等待队列，此时协程 A 释放锁，协程 B 被唤醒</h4> <p>让我们会视线切到<code>lockSlow</code> 的后半截。</p> <pre><code class="language-go">const starvationThresholdNs = 1e6 if atomic.CompareAndSwapInt32(&amp;m.state, old, new) {     // ...     runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1)     starving = starving || runtime_nanotime()-waitStartTime &gt; starvationThresholdNs     old = m.state 	// ...     iter = 0 }</code></pre> <p>当协程 B 从<code>runtime_SemacquireMutex</code> 处醒来后，会根据该协程的等待的时间来判断是否饥饿了。这里我们先假设此时还没有饥饿，后面会详细讨论饥饿时的情况。之后会将<code>iter</code> 重置为 0，接着就进行下一次的循环了，由于<code>iter</code> 已经被重置为 0 了，所以在下一次循环时，<code>sync_runtime_doSpin(iter)</code> 会返回<code>true</code>。</p> <p>由于此时 state 已经变成了 0 了，所以在下一次循环里可以畅通无阻的拿到锁。</p> <h4 id="饥饿情况下的解锁行为-starvationflag-的作用">饥饿情况下的解锁行为: starvationFlag 的作用</h4> <p>设想这样一种情况：goroutine A 拿到锁，goroutine B 抢锁失败，被放入等待队列。goroutine A 释放锁，goroutine B 被唤醒，但是正当它抢锁时，锁被新来的 goroutine C 抢走了... 连续好几次，每当 goroutine B 要抢锁时，锁都被其他协程抢先一步拿走。直到某一次，goroutine B 再次被唤醒后执行</p> <pre><code class="language-go">starving = starving || runtime_nanotime()-waitStartTime &gt; starvationThresholdNs</code></pre> <p>它就进入饥饿模式 (starvation mode) 啦！</p> <pre><code class="language-go">// The current goroutine switches mutex to starvation mode. // But if the mutex is currently unlocked, don't do the switch. // Unlock expects that starving mutex has waiters, which will not // be true in this case. if starving &amp;&amp; old&amp;mutexLocked != 0 {     new |= mutexStarving }</code></pre> <p>之后通过 CAS 操作将饥饿标志设置到了<code> mutex.state</code> 里面，然后它就又被放到等待队列中了。</p> <pre><code class="language-go">atomic.CompareAndSwapInt32(&amp;m.state, old, new)</code></pre> <h5 id="unlock">Unlock()</h5> <p>视角切换到 Unlock() 这一边</p> <pre><code class="language-go">func (m *Mutex) Unlock() { 	// ... 	// Fast path: drop lock bit. 	new := atomic.AddInt32(&amp;m.state, -mutexLocked) 	if new != 0 { 		// Outlined slow path to allow inlining the fast path. 		// To hide unlockSlow during tracing we skip one extra frame when tracing GoUnblock. 		m.unlockSlow(new) 	} }  func (m *Mutex) unlockSlow(new int32) { 	// ... 	if new&amp;mutexStarving == 0 { 		// ... 		for { 			// ... 			if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 				runtime_Semrelease(&amp;m.sema, false, 1) 				return 			}             // ... 		} 	} else { 		// Starving mode: handoff mutex ownership to the next waiter, and yield 		// our time slice so that the next waiter can start to run immediately. 		// Note: mutexLocked is not set, the waiter will set it after wakeup. 		// But mutex is still considered locked if mutexStarving is set, 		// so new coming goroutines won't acquire it. 		runtime_Semrelease(&amp;m.sema, true, 1) 	} }</code></pre> <p>在<code>unlockSlow()</code> 中，此时<code>new&amp;mutexStarving != 0</code>，所以会直接进入到 else 分支内，调用<code>runtime_Semrelease()</code>  方法，但要注意 else 分支内<code>runtime_Semrelease()</code>   的参数和 if 分支的参数不一样，在这里<code>runtime_Semrelease(&amp;m.sema, true, 1)</code> 起到的作用是唤醒了等待队列中的第一个协程并立马调度该协程 (<code>runtime_Semrelease()</code> 方法的详解在后面 )。</p> <p>同时正如注释所说，在<code>Unlock()</code> 中由于进行了<code>atomic.AddInt32(&amp;m.state, -mutexLocked)</code> 操作，所以 mutex.state 的 lockFlag 是为 0 的，但是没关系，starvationFlag 是为 1 的，所以会依旧被认为是锁住的状态。</p> <h5 id="lock">Lock()</h5> <pre><code class="language-go">func (m *Mutex) Lock() { 	// ... 	m.lockSlow() }  func (m *Mutex) lockSlow() { 	// ... 	for { 		// ... 		if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 			// ... 			runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1) 			// ... 			old = m.state 			if old&amp;mutexStarving != 0 { 				// If this goroutine was woken and mutex is in starvation mode, 				// ownership was handed off to us but mutex is in somewhat 				// inconsistent state: mutexLocked is not set and we are still 				// accounted as waiter. Fix that. 				// ... 				delta := int32(mutexLocked - 1&lt;&lt;mutexWaiterShift) 				if !starving || old&gt;&gt;mutexWaiterShift == 1 { 					// Exit starvation mode. 					// Critical to do it here and consider wait time. 					// Starvation mode is so inefficient, that two goroutines 					// can go lock-step infinitely once they switch mutex 					// to starvation mode. 					delta -= mutexStarving 				} 				atomic.AddInt32(&amp;m.state, delta) 				break 			} 			awoke = true 			iter = 0 		} else { 			old = m.state 		} 	} 	// ... }</code></pre> <p>视角再次切换到<code>Lock()</code> 这边，饥饿的 goroutine 被唤醒并调度后，首先执行<code>old = m.state</code>， 此时 old 的 starvationFlag = 1。</p> <p>之后就正如注释所说，它会尝试修复 mutex.state 的"不一致" (inconsistent) 状态。</p> <p>修复工作主要做了三件事情:</p> <ol> <li> <p>在 starvation mode 下的 Unlock() 没有将 waitterCount - 1, 所以这里需要给 mutexWaiter  减 1</p> </li> <li> <p>将 state 的 locked flag 置为 1</p> </li> <li> <p>如果该 goroutine 没有饥饿或者是等待队列中的最后一个 goroutine 的话，清理 starvationFlag</p> </li> </ol> <p>这三件事情通过<code>atomic.AddInt32(&amp;m.state, delta)</code> 一步到位。</p> <h6 id="runtime_semrelease">runtime_Semrelease()</h6> <pre><code class="language-go">// Semrelease atomically increments *s and notifies a waiting goroutine // if one is blocked in Semacquire. // It is intended as a simple wakeup primitive for use by the synchronization // library and should not be used directly. // If handoff is true, pass count directly to the first waiter. // skipframes is the number of frames to omit during tracing, counting from // runtime_Semrelease's caller. func runtime_Semrelease(s *uint32, handoff bool, skipframes int)</code></pre> <p>handoff 就是传球的意思，handoff 为 false 时，仅仅唤醒等待队列中第一个协程，但是不会立马调度该协程；当 handoff 为 true 时，会立马调度被唤醒的协程，此外，当 handoff = true 时，被唤醒的协程会继承当前协程的时间片。具体例子，假设每个 goroutine 的时间片为 2ms，gorounte A 已经执行了 1ms，假设它通过 runtime_Semrelease(handoff = true)  唤醒了 goroutine B，则 goroutine B 剩余的时间片为 2 - 1 = 1ms。</p> <h4 id="饥饿模式下新来的-goroutine-的加锁行为-starvationflag-的作用">饥饿模式下新来的 goroutine 的加锁行为: starvationFlag 的作用</h4> <p>如果在饥饿模式下，有新的 goroutine 来请求锁，它会执行下面这些步骤</p> <pre><code class="language-go">func (m *Mutex) lockSlow() {     // ... 	old := m.state 	for { 		// Don't spin in starvation mode, ownership is handed off to waiters 		// so we won't be able to acquire the mutex anyway. 		if old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) { 			// ... 			runtime_doSpin() 		} 		new := old 		// Don't try to acquire starving mutex, new arriving goroutines must queue. 		if old&amp;mutexStarving == 0 { 			new |= mutexLocked 		} 		if old&amp;(mutexLocked|mutexStarving) != 0 { 			new += 1 &lt;&lt; mutexWaiterShift 		} 		// ... 		if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 			// .. 			runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1) 			// ... 		} else { 			// ... 		} 	} 	// ... }</code></pre> <p>由于<code>old&amp;(mutexLocked|mutexStarving) != mutexLocked</code> ，所以它<strong>不会</strong>自旋。</p> <p>由于<code>old&amp;mutexStarving != 0</code>，所以它<strong>不会</strong> set lockFlag。</p> <p>由于<code>old&amp;(mutexLocked|mutexStarving) != 0</code>，所以它<strong>会</strong> 增加 waiterCount。</p> <p>可以看到，它实际上就做了增加<code>waiterCount</code> 这一个操作，之后通过 CAS 更新 state 的状态，更新完成之后就跑去等待队列睡觉去了。</p> <p>因此在饥饿状态下，新的来争抢锁的 goroutine 是不会去抢锁 (set lockFlag) 的，它们只会登记一下 (waiterCount + 1) ，然后乖乖加入到等待队列里面。</p> <h4 id="当有协程正在自旋时的解锁行为-wokenflag-的作用">当有协程正在自旋时的解锁行为: wokenFlag 的作用</h4> <p>wokenFlag 是在 lockSlow() 里面被设置的，wokenFlag 为 1 时，表示此时有协程正在进行自旋。</p> <pre><code class="language-go">func (m *Mutex) lockSlow() { 	starving := false 	awoke := false 	iter := 0 	old := m.state 	for { 		// Don't spin in starvation mode, ownership is handed off to waiters 		// so we won't be able to acquire the mutex anyway. 		if old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) { 			// Active spinning makes sense. 			// Try to set mutexwokenFlag to inform Unlock 			// to not wake other blocked goroutines. 			if !awoke &amp;&amp; old&amp;mutexWoken == 0 &amp;&amp; old&gt;&gt;mutexWaiterShift != 0 &amp;&amp; 				atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) { 				awoke = true 			} 			runtime_doSpin() 			iter++ 			old = m.state 			continue 		} 		// ... 		if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 			// ... 			runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1) 			// ... 			awoke = true 			iter = 0 		}          // ... 	}     // ... }</code></pre> <p>当一个新来的协程 (从未被放到等待队列中) 在第一次自旋时，wokenFlag 的设置逻辑为:</p> <pre><code class="language-go">if !awoke &amp;&amp; old&amp;mutexWoken == 0 &amp;&amp; old&gt;&gt;mutexWaiterShift != 0 &amp;&amp; 	atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) {     awoke = true }</code></pre> <p>但是当协程从等待队列中被唤醒后自旋时，却<code>lockSlow()</code>找不到设置 wokenFlag 的逻辑，为何？因为这段逻辑被放到了<code>unlockSlow</code> 里面了。</p> <p>视线切换到<code>unlockSlow()</code> 那一边</p> <pre><code class="language-go">func (m *Mutex) unlockSlow(new int32) { 	// ... 	if new&amp;mutexStarving == 0 { 		old := new 		for { 			// If there are no waiters or a goroutine has already 			// been woken or grabbed the lock, no need to wake anyone. 			// In starvation mode ownership is directly handed off from unlocking 			// goroutine to the next waiter. We are not part of this chain, 			// since we did not observe mutexStarving when we unlocked the mutex above. 			// So get off the way. 			if old&gt;&gt;mutexWaiterShift == 0 || old&amp;(mutexLocked|mutexWoken|mutexStarving) != 0 {                 // 当 mutexwokenFlag 被设置时，会直接 return                 // 不会去等待队列唤醒 goroutine 				return 			} 			// Grab the right to wake someone.             // 这个地方会设置 wokenFlag 哦 			new = (old - 1&lt;&lt;mutexWaiterShift) | mutexWoken 			if atomic.CompareAndSwapInt32(&amp;m.state, old, new) { 				runtime_Semrelease(&amp;m.sema, false, 1) 				return 			} 			old = m.state 		} 	} else { 		// ... 	} }</code></pre> <p>可以看到，当有协程正在自旋时  (wokenFlag = 1) ，不会从等待队列唤醒协程，这样就避免了等待队列上的协程加入竞争，当然，正在自旋中的协程之间彼此之间还是会竞争的；如果 wokenFlag = 0，则会从等待队列中唤醒一个协程，在唤醒之前会将 wokenFlag 设置为 1，这样协程被唤醒后就不用再去设置 wokenFlag 了，妙呀！</p> <p>为什么当有协程在自旋时，不要去等待队列中唤醒协程呢？协程从被唤醒到被调度 (在 CPU 上面执行) 是要花时间的，等真正自旋时 mutex 早就被抢走了。</p> <h4 id="协程从等待队列被唤醒后如果还是没有抢到锁会被放到队列首部还是尾部">协程从等待队列被唤醒后如果还是没有抢到锁，会被放到队列首部还是尾部？</h4> <p>但是是头部，代码如下:</p> <pre><code class="language-go">// If we were already waiting before, queue at the front of the queue. queueLifo := waitStartTime != 0 if waitStartTime == 0 {     waitStartTime = runtime_nanotime() } runtime_SemacquireMutex(&amp;m.sema, queueLifo, 1)</code></pre> <h4 id="复杂情景分析">复杂情景分析</h4> <p>基于上面的逻辑来分析一下复杂的逻辑吧！</p> <p>假设有协程 g1,g2,g3,g4,g5,g6, 共同争抢一把锁 m</p> <p>一开始 g1 拿到锁</p> <p>owner: g1				waitqueue: null</p> <p>g2 开始抢锁，没有抢到，被放到等待队列</p> <p>owner: g1				waitqueue: g2</p> <p>g1 释放锁，g2 从等待队列中被唤醒</p> <p>owner: null 		     waitqueue: null</p> <p>此时 g3 也开始抢锁，g2 没有抢过，又被放回等待队列</p> <p>owner: g3			    waitqueue: g2</p> <p>g4 开始抢锁，没有抢到，被放到等待队列</p> <p>owner: g3				waitqueue: g2, g4</p> <p>g3 释放锁，g2 被唤醒</p> <p>owner: null			  waitqueue: g4</p> <p>此时 g5 开始抢锁，g2 没有抢过，又被放回等待队列<strong>首部</strong></p> <p>owner: g5				waitqueue: g2, g4</p> <p>g6 开始抢锁，正在自旋中</p> <p>owner: g5				waitqueue: g2, g4		wokenFlag: 1		spinning: g6</p> <p>g5 释放锁，由于此时有协程正在自旋，因此不会去等待队列中唤醒协程，锁被 g6 轻松抢到</p> <p>owner: g6				waitqueue: g2, g4		wokenFlag: 0		spinning: null</p> <p>g6 释放锁，g2 被唤醒，此时 g7 开始抢锁，g2 没有抢过，又被放回等待队列<strong>首部</strong>，但是 g2 由于太久没有抢到锁，进入饥饿模式了</p> <p>owner: g7	           waitqueue: g2(饥饿), g4		starvationFlag: 1</p> <p>g8 来抢锁，由于处于饥饿状态，g8 会被直接放在等待队列尾部</p> <p>owner: g7	           waitqueue: g2(饥饿), g4, g8		starvationFlag: 1</p> <p>g7 释放锁，由于处于饥饿状态，会直接唤醒 g2 并调度它</p> <p>owner: g2			  waitqueue: g4, g8		starvationFlag: 1</p> <p>g2 执行完毕，释放锁，<strong>注意此刻依旧是饥饿状态</strong>，直接调度 g4，g4 苏醒后，发现它自己没有饥饿，于是 clear starvationFlag</p> <p>owner: g4			  waitqueue: g8		starvationFlag: 0</p> <p>此时新来的 g8 可以正常加入到对锁的争抢中了，之后就是正常的加锁解锁逻辑了。</p> <h4 id="一点小瑕疵-一种很边缘的-starvation-case">一点小瑕疵: 一种很边缘的 starvation case</h4> <p>由于等待队列中的协程只有当被唤醒之后才会根据等待时间来判断是否进入 starvation mode，因此会存在一个协程在等待队列中等待了很久，它实际上已经饥饿了，但是一直没被唤醒过，就没机会 set starvationFlag，这就会导致饥饿现象的发生。</p> <p>那么会存在等待队列里的协程一直不被唤醒的情况么？</p> <p>有的！在<code>unlockSlow()</code> 时如果 wokenFlag = 1，那就不会去唤醒等待队列中的线程。就会存在这样一种情况，假设每次<code>Unlock()</code> 时恰好有一个新来的协程在自旋，那等待队列中的协程就会永远饥饿下去！</p> <h4 id="reference">reference</h4> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://brooker.co.za/blog/2021/04/19/latency.html"  target="_blank" rel="nofollow">Tail Latency Might Matter More Than You Think</a></p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://zhuanlan.zhihu.com/p/27608263"  target="_blank" rel="nofollow">Golang 互斥锁内部实现</a></p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-71032.htm">上海宠物中心领养地址查询官网（上海宠物领养中心免费领养狗狗）</a></p>
+                                        <p>下一个：<a href="/news/article-71702.htm">全国知名兽药厂（全国知名兽药厂家排行榜）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-68419.htm" title="包含宠物粮加工厂原料有哪些呢视频的词条">包含宠物粮加工厂原料有哪些呢视频的词条</a></li>
+                        <li class="py-2"><a href="/news/article-53199.htm" title="宠物粮怎样跑销售 宠物粮销售渠道">宠物粮怎样跑销售 宠物粮销售渠道</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-6-free-subscribe-node.htm" title="免费机场 | 3月6日22.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址">免费机场 | 3月6日22.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-8-clash-v2ray-ss-ssr.htm" title="免费机场 | 2月8日20.6M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址">免费机场 | 2月8日20.6M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-26-node-share.htm" title="免费机场 | 2月26日22.8M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址">免费机场 | 2月26日22.8M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-67155.htm" title="沈阳宠爱康宠物医院（沈阳宠爱康宠物医院在哪）">沈阳宠爱康宠物医院（沈阳宠爱康宠物医院在哪）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-4-clash-v2ray-ss-ssr.htm" title="免费机场 | 3月4日21.4M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址">免费机场 | 3月4日21.4M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-59899.htm" title="使用 vscode 插件可视化制作和管理脚手架及原理解析">使用 vscode 插件可视化制作和管理脚手架及原理解析</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-18-free-v2ray-subscribe.htm" title="免费机场 | 2月18日18M/S|免费VPN/Shadowrocket/SSR/Clash/V2ray免费节点链接地址">免费机场 | 2月18日18M/S|免费VPN/Shadowrocket/SSR/Clash/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-16-free-high-speed-nodes.htm" title="免费机场 | 2月16日18.7M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 2月16日18.7M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">33</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">67</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
