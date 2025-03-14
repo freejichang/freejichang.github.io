@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-73688.htm" />
+    <meta charset="utf-8">
+    <title>Android 图像显示系统基础知识之 BitTube</title>
+        <meta name="description" content="必读： Android 12(S) 图像显示系统 - 开篇  一、基本概念  在Android显示子系统中，我们会看到有使用BitTube来进行跨进程数据传递。BitTube的实现很简洁，就是一对“p" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-73688.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="Android 图像显示系统基础知识之 BitTube" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/6d79e939c1574c9d1b6f2f1e8880e460.webp" />
+        <meta property="og:release_date" content="2025-03-14T07:06:26" />
+    <meta property="og:updated_time" content="2025-03-14T07:06:26" />
+        <meta property="og:description" content="必读： Android 12(S) 图像显示系统 - 开篇  一、基本概念  在Android显示子系统中，我们会看到有使用BitTube来进行跨进程数据传递。BitTube的实现很简洁，就是一对“p" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Android 图像显示系统基础知识之 BitTube">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>Android 图像显示系统基础知识之 BitTube</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<hr/> <h4 class="postTitle" style="text-align: left"><strong><span style="color: rgba(224, 62, 45, 1); font-size: 16px">必读：</span></strong></h4> <h4 class="postTitle" style="text-align: left; padding-left: 40px"><strong><span style="font-size: 15px"><a id="cb_post_title_url" class="postTitle2 vertical-middle" href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/roger-yu/p/15641545.html"  rel="nofollow">Android 12(S) 图像显示系统 - 开篇</a></span></strong></h4> <hr/> <h2>一、基本概念</h2> <hr/> <p>在Android显示子系统中，我们会看到有使用BitTube来进行跨进程数据传递。BitTube的实现很简洁，就是一对“parcel-able”模式的socket，用Linux/Unix中的专业术语就是socketpair。socketpair是Linux/Unix系统中用于进程间通信的一种机制，和pipe十分类似。</p> <p>socketpair利用socket为双方建立了全双工的通信管道(communication pipe)。通过文件描述符的复用(dup/dup2)，可以传递socket handle到另一个进程，复用它并开启通信。</p> <p>BitTube使用了Linux/Unix socket中的顺序数据包(sequenced packets，SOCK_SEQPACKET)，像SOCK_DGRAM，它只传送整包数据；又像SOCK_STREAM，面向连接且提供有序的数据报传送。</p> <p>尽管socketpair是一个全双工的管道，但BitTube是按照单向方式使用它的：一端写入数据，另一端读出数据。收、发缓存默认限制为4KB大小。在BitTube中，提供了收发序列化对象的方法(sendObjects, recvObjects)。</p> <h2>二、源码解读</h2> <hr/> <p>BitTube代码量很少,在(frameworks\native\libs\gui\BitTube.cpp)中,我们直接看它的几个重要的接口。</p> <h3>2.1 构造函数</h3> <pre class="language-cpp"><code>[/frameworks/native/libs/gui/include/private/gui/BitTube.h] BitTube() = default; // 默认构造函数，未初始化 explicit BitTube(size_t bufsize); // 创建指定发送、接收缓存大小的BitTube对象，creates a BitTube with a a specified send and receive buffer size explicit BitTube(DefaultSizeType); // 默认缓存大小4KB，creates a BitTube with a default (4KB) send buffer explicit BitTube(const Parcel&amp; data); // 从Parcel中解析创建对象，用于跨进程传递该对象</code></pre> <p>BitTube提供了四个构造函数，用于不同的场景</p> <pre class="language-cpp"><code>[/frameworks/native/libs/gui/BitTube.cpp] BitTube::BitTube(size_t bufsize) {     init(bufsize, bufsize); // 根据指定的buffer size,进行初始化 }  BitTube::BitTube(DefaultSizeType) : BitTube(DEFAULT_SOCKET_BUFFER_SIZE) {}  BitTube::BitTube(const Parcel&amp; data) {     readFromParcel(&amp;data); }</code></pre> <p>构造函数中最主要的还是调用了init方法进行初始化。</p> <h3>2.2 init初始化</h3> <p>init方法中就是去创建/配置sockect pair</p> <pre class="language-cpp"><code>[/frameworks/native/libs/gui/BitTube.cpp] void BitTube::init(size_t rcvbuf, size_t sndbuf) {     int sockets[2];     if (socketpair(AF_UNIX, SOCK_SEQPACKET, 0, sockets) == 0) { // 创建socket pair         size_t size = DEFAULT_SOCKET_BUFFER_SIZE;         setsockopt(sockets[0], SOL_SOCKET, SO_RCVBUF, &amp;rcvbuf, sizeof(rcvbuf)); // //对socketfd进行配置         setsockopt(sockets[1], SOL_SOCKET, SO_SNDBUF, &amp;sndbuf, sizeof(sndbuf));         // since we don't use the "return channel", we keep it small...         setsockopt(sockets[0], SOL_SOCKET, SO_SNDBUF, &amp;size, sizeof(size));         setsockopt(sockets[1], SOL_SOCKET, SO_RCVBUF, &amp;size, sizeof(size));         fcntl(sockets[0], F_SETFL, O_NONBLOCK); //设置为非阻塞         fcntl(sockets[1], F_SETFL, O_NONBLOCK); //设置为非阻塞         mReceiveFd.reset(sockets[0]); //用于数据接收的socket handle         mSendFd.reset(sockets[1]);    //用于数据发送的socket handle     } else {         mReceiveFd.reset();         ALOGE("BitTube: pipe creation failed (%s)", strerror(errno));     } }</code></pre> <p>成员变量mReceiveFd,看起来是一个接收端,实际上这个fd也可以用来发送，同样mSendFd也可以用来接收，只是BitTube是按照单向方式使用它的：一端写入数据，另一端读出数据。</p> <h3 id="sendobjects与recvobjects">2.3 sendObjects 发送数据</h3> <p>先看其定义，sendObject实现为一个模板函数,sendObjects里调用的是write成员函数,write中调用send接口将数据写入mSendFd中。</p> <pre class="language-cpp"><code>[/frameworks/native/libs/gui/include/private/gui/BitTube.h] // send objects (sized blobs). All objects are guaranteed to be written or the call fails. template &lt;typename T&gt; static ssize_t sendObjects(BitTube* tube, T const* events, size_t count) {         return sendObjects(tube, events, count, sizeof(T)); }</code></pre> <p>发送成功则返回：发送的对象的个数</p> <p>发送失败则返回：负数</p> <pre class="language-cpp"><code>[ /frameworks/native/libs/gui/BitTube.cpp] ssize_t BitTube::sendObjects(BitTube* tube, void const* events, size_t count, size_t objSize) {     const char* vaddr = reinterpret_cast&lt;const char*&gt;(events);     ssize_t size = tube-&gt;write(vaddr, count * objSize);     ...     return size &lt; 0 ? size : size / static_cast&lt;ssize_t&gt;(objSize); }  ssize_t BitTube::write(void const* vaddr, size_t size) {     ssize_t err, len;     do {         len = ::send(mSendFd, vaddr, size, MSG_DONTWAIT | MSG_NOSIGNAL); // 通过mSendFd，发送数据         // cannot return less than size, since we're using SOCK_SEQPACKET         err = len &lt; 0 ? errno : 0;     } while (err == EINTR);     return err == 0 ? len : -err; }</code></pre> <h3>2.4 recvObjects 接收数据</h3> <p>先看其定义，recvObject实现为一个模板函数,recvObjects里调用的是read成员函数,read中调用rev接口将数据从mReceiveFd中读出。</p> <p>接收成功则返回：接收的对象的个数</p> <p>接收失败则返回：负数</p> <pre class="language-cpp"><code>[ /frameworks/native/libs/gui/include/private/gui/BitTube.h] template &lt;typename T&gt; static ssize_t recvObjects(BitTube* tube, T* events, size_t count) {     return recvObjects(tube, events, count, sizeof(T)); } [/frameworks/native/libs/gui/BitTube.cpp] ssize_t BitTube::recvObjects(BitTube* tube, void* events, size_t count, size_t objSize) {     char* vaddr = reinterpret_cast&lt;char*&gt;(events);     ssize_t size = tube-&gt;read(vaddr, count * objSize);     ...     return size &lt; 0 ? size : size / static_cast&lt;ssize_t&gt;(objSize); }  ssize_t BitTube::read(void* vaddr, size_t size) {     ssize_t err, len;     do {         len = ::recv(mReceiveFd, vaddr, size, MSG_DONTWAIT);         err = len &lt; 0 ? errno : 0;     } while (err == EINTR);     if (err == EAGAIN || err == EWOULDBLOCK) {         // EAGAIN means that we have non-blocking I/O but there was no data to be read. Nothing the         // client should care about.         return 0;     }     return err == 0 ? len : -err; }</code></pre> <p><span style="color: rgba(206, 212, 217, 1)">本文作者@</span><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.cnblogs.com/roger-yu/"  rel="nofollow"><span style="color: rgba(206, 212, 217, 1)">二的次方</span></a><span style="color: rgba(206, 212, 217, 1)">&nbsp; 2022-04-18 发布于博客园</span></p> <h3>2.5 writeToParcel &amp; readFromParcel</h3> <p>writeToParcel &amp; readFromParcel用于跨进程传递BitTube对象，进行序列化和反序列化，主要是传递mReceivedFd 和 mSendFd。</p> <pre class="language-cpp"><code> status_t BitTube::writeToParcel(Parcel* reply) const {     if (mReceiveFd &lt; 0) return -EINVAL;      status_t result = reply-&gt;writeDupFileDescriptor(mReceiveFd); // mReceiveFd写入Parcel     mReceiveFd.reset();     if (result != NO_ERROR) {         return result;     }     result = reply-&gt;writeDupFileDescriptor(mSendFd);// mSendFd写入Parcel     mSendFd.reset();     return result; }  status_t BitTube::readFromParcel(const Parcel* parcel) {     mReceiveFd.reset(dup(parcel-&gt;readFileDescriptor())); // 获取 mReceiveFd     if (mReceiveFd &lt; 0) {         mReceiveFd.reset();         int error = errno;         ALOGE("BitTube::readFromParcel: can't dup file descriptor (%s)", strerror(error));         return -error;     }     mSendFd.reset(dup(parcel-&gt;readFileDescriptor())); // 获取 mSendFd     if (mSendFd &lt; 0) {         mSendFd.reset();         int error = errno;         ALOGE("BitTube::readFromParcel: can't dup file descriptor (%s)", strerror(error));         return -error;     }     return NO_ERROR; }</code></pre> <h2>三、使用</h2> <p>关于如何使用BitTube实现跨进程的数据通信，提供一个简单的测试Demo:</p> <p><a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://github.com/yrzroger/BitTubeTest"  target="_blank" rel="nofollow">https://github.com/yrzroger/BitTubeTest</a></p> <p>在测试demo中，创建了一个BitTube对象，这样就建立了通信的 socketpair。</p> <p>然后使用fork系统调用创建新的进程，来模拟跨进的通信中的不同进程(一个父进程，一个子进程)</p> <p>父进程和子进程就可以使用BitTube对象的sendObjects方法发送数据，或使用recvObjects方法接收数据</p> <p>Demo的主要代码如下：</p> <pre class="language-cpp"><code>struct Event {     int id;     int message; };  int main() {     gui::BitTube* dataChannel = new gui::BitTube(gui::BitTube::DefaultSize);          printf("\033[0mBitTube info: mReceiveFd=%d, mSendFd=%d\n", dataChannel-&gt;getFd(), dataChannel-&gt;getSendFd());      if(fork()) {         // 父进程发送数据         Event events[] = { {0, 888}, {1, 999} };         ssize_t size = gui::BitTube::sendObjects(dataChannel, events, 2);         if(size &lt; 0)             printf("\033[32mprocess(%d) send failed, in parent process", getpid());         else             printf("\033[32mprocess(%d) send success, object size = %d\n", getpid(), size);         sleep(1);         // 父进程接收数据         size = gui::BitTube::recvObjects(dataChannel, events, 2);         if(size &lt; 0) {             printf("\033[32mprocess(%d) receive failed, in child process", getpid());         }         else {             printf("\033[32mprocess(%d) receive success, object size = %d\n", getpid(), size);             for(int i = 0; i &lt; size; ++i) {                 printf("\033[32mprocess(%d): id=%d, message=%d\n", getpid(), events[i].id, events[i].message);             }         }         sleep(1);              } else {         // 子进程接收数据         Event events[2];         ssize_t size = gui::BitTube::recvObjects(dataChannel, events, 2);         if(size &lt; 0) {             printf("\033[31mprocess(%d) receive failed, in child process", getpid());         }         else {             printf("\033[31mprocess(%d) receive success, object size = %d\n", getpid(), size);             for(int i = 0; i &lt; size; ++i) {                 printf("\033[31mprocess(%d): id=%d, message=%d\n", getpid(), events[i].id, events[i].message);             }         }         // 子进程发送数据         events[0].message+=1; events[1].message+=1;         size = gui::BitTube::sendObjects(dataChannel, events, 2);         if(size &lt; 0)             printf("\033[31mprocess(%d) send failed, in parent process", getpid());         else             printf("\033[31mprocess(%d) send success, object size = %d\n", getpid(), size);         sleep(2);     }     delete dataChannel;      return 0; }</code></pre> <p>放到Android源码下，执行mm，编译得到可执行档BitTubeTest，push到测试板/system/bin/目录下 执行BitTubeTest可以查看打印的结果：</p> <p>绿色字体是父进程的打印(PID=12374)，红色字体是子进程的打印(PID=12375)</p> <p><img fetchpriority="high" decoding="async" style="display: block; margin-left: auto; margin-right: auto" src="http://img.555519.xyz/uploads3/20220509/679e8ee6b27692ce8cb57508da3d4ba8.jpg" alt="Android 图像显示系统基础知识之 BitTube" width="417" height="171"/></p> <p>在Android图像显示子系统中， /frameworks/native/libs/gui/DisplayEventReceiver.cpp 及 &nbsp;/frameworks/native/services/surfaceflinger/Scheduler/EventThread.cpp 中可以看到使用BitTube的身影。</p> <p>BitTube用于建立跨进程传递数据的通道，主要是display evnets， 比如hotplug events , vsync events等等</p> <p>至于具体的使用过程，在接下来的文章中我们会再详细介绍，，本篇就仅先讲解必要的基础知识。</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-73023.htm">领养宠物怎么领养的呢（领养宠物流程图）</a></p>
+                                        <p>下一个：<a href="/news/article-73689.htm">广州宠物领养微信群号是什么（广州宠物狗领养网站）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-63431.htm" title="宠物狗粮销售招聘要求（狗粮招聘业务）">宠物狗粮销售招聘要求（狗粮招聘业务）</a></li>
+                        <li class="py-2"><a href="/news/article-61634.htm" title="圣诞 集市(圣诞集市2020)">圣诞 集市(圣诞集市2020)</a></li>
+                        <li class="py-2"><a href="/news/article-65897.htm" title="mysql的时间用什么存储_MySQL存储时间类型选择的问题讲解">mysql的时间用什么存储_MySQL存储时间类型选择的问题讲解</a></li>
+                        <li class="py-2"><a href="/news/article-67773.htm" title="JRebel热部署的使用">JRebel热部署的使用</a></li>
+                        <li class="py-2"><a href="/news/article-60475.htm" title="动物疫苗新法案解读最新 动物疫苗新法案解读最新版">动物疫苗新法案解读最新 动物疫苗新法案解读最新版</a></li>
+                        <li class="py-2"><a href="/news/article-59326.htm" title="适合穷养的猫（适合穷养的猫品种）">适合穷养的猫（适合穷养的猫品种）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-10-node-share-links.htm" title="免费机场 | 3月10日21.2M/S|免费VPN/Clash/SSR/Shadowrocket/V2ray免费节点链接地址">免费机场 | 3月10日21.2M/S|免费VPN/Clash/SSR/Shadowrocket/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-57607.htm" title="前端开发中需要搞懂的字符编码知识_在线工具">前端开发中需要搞懂的字符编码知识_在线工具</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-27-free-subscribe-node.htm" title="免费机场 | 2月27日20.1M/S|免费VPN/V2ray/SSR/Shadowrocket/Clash免费节点链接地址">免费机场 | 2月27日20.1M/S|免费VPN/V2ray/SSR/Shadowrocket/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-69730.htm" title="动物疫苗打一次管多长时间啊视频教程（动物疫苗打一次管多长时间啊视频教程）">动物疫苗打一次管多长时间啊视频教程（动物疫苗打一次管多长时间啊视频教程）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">42</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">67</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
