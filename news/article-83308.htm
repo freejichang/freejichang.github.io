@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-83308.htm" />
+    <meta charset="utf-8">
+    <title>Java基础|Java8接口新特性</title>
+        <meta name="description" content="文章目录  1 接口特性 2 Java8接口-新特性 3 具体用例     接口不是类，不能使用 new 实例化一个接口； 不能构造接口的对象，但可声明接口的变量； 接口变量必须引用实现了接口的类对象" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-83308.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="Java基础|Java8接口新特性" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/209fd5f4cc6aaaba38a6d402a0f4b8a8.webp" />
+        <meta property="og:release_date" content="2025-03-28T09:55:23" />
+    <meta property="og:updated_time" content="2025-03-28T09:55:23" />
+        <meta property="og:description" content="文章目录  1 接口特性 2 Java8接口-新特性 3 具体用例     接口不是类，不能使用 new 实例化一个接口； 不能构造接口的对象，但可声明接口的变量； 接口变量必须引用实现了接口的类对象" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Java基础|Java8接口新特性">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>Java基础|Java8接口新特性</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-light"> <div class="toc"> <h3>文章目录</h3> <ul> <li><a href="#1__1" rel="nofollow">1 接口特性</a></li> <li><a href="#2_Java8_12" rel="nofollow">2 Java8接口-新特性</a></li> <li><a href="#3__24" rel="nofollow">3 具体用例</a></li> </ul> </div> </h1> <ol> <li>接口不是类，不能使用 new 实例化一个接口；</li> <li>不能构造接口的对象，但可声明接口的变量；</li> <li>接口变量必须引用实现了接口的类对象；</li> <li>可以使用 instanceof 检查一个对象是否实现了某个特定的接口；</li> <li>可以建立类的继承关系一样，接口可以继承接口进行扩展；</li> <li>接口中不能包含实例域或静态方法，但可包含常量；</li> <li>接口中声明的方法自动地设置为 public；</li> <li>接口中的域（即常量）自动地设置为 public static final;</li> </ol> </h1> <ol> <li>静态方法。<br /> JavaSE8 允许在接口中增加<strong>静态方法</strong>；</li> <li>默认方法。<br /> 可以为接口方法提供一个默认实现，必须使用 default 修饰符标记这个方法；</li> <li>解决默认方法冲突问题：<br /> 如果接口中将一个方法定义为默认方法，然后在超类或另一个接口中定义了同样的方法。就要解决冲突，规则如下：<br /> ① 超类优先。如果超类提供了一个具体方法，同名且有相同参数类型的默认方法会被忽略。<br /> ②接口冲突。如果一个超接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型相同的方法，必须覆盖这个方法来解决冲突。<br /> ③类优先原则。如果一个类扩展了一个超类，同时实现了一个接口，并且从超类和接口继承了相同的方法。此种情况使用类优先原则，接口的默认方法会被忽略。</li> </ol> </h1> <p>接口PersonInfo</p> <pre><code class="prism language-java"><span class="token comment">/**  * @version $Id: PersonInfo.java, v 0.1 2017年6月9日 下午5:19:14  */</span> <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PersonInfo</span> <span class="token punctuation">{<!-- --></span>     <span class="token comment">//方法都自动设置为public</span>     <span class="token keyword">void</span> <span class="token function">printAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">//常量自动设置为 public static final</span>     <span class="token class-name">String</span> DEFAULT_NAME <span class="token operator">=</span> <span class="token string">"TIANCI"</span><span class="token punctuation">;</span>      <span class="token keyword">int</span>    DEFAULT_AGE  <span class="token operator">=</span> <span class="token number">18</span><span class="token punctuation">;</span>      <span class="token class-name">String</span> DEFAULT_SEX  <span class="token operator">=</span> <span class="token string">"男"</span><span class="token punctuation">;</span>      <span class="token comment">//javaSE8可以有静态方法</span>     <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">printSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>DEFAULT_SEX<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">;</span>      <span class="token comment">//javaSE8 可以为接口方法提供默认实现，default进行标记</span>     <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>DEFAULT_NAME<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token punctuation">}</span> </code></pre> <hr/> <p>接口PersonHobby</p> <pre><code class="prism language-java"><span class="token comment">/**  * @version $Id: PersonHobby.java, v 0.1 2017年6月9日 下午5:41:59  */</span> <span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PersonHobby</span> <span class="token punctuation">{<!-- --></span>     <span class="token class-name">String</span> DEFAULT_HOBBY <span class="token operator">=</span> <span class="token string">"运动"</span><span class="token punctuation">;</span>      <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"hobby name is:"</span> <span class="token operator">+</span> DEFAULT_HOBBY<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span>  </code></pre> <hr/> <p>类Person</p> <pre><code class="prism language-java"><span class="token comment">/**  * Person类实现了两个接口，两个接口中都有默认的实现方法printName()  * 造成冲突，解决冲突的办法就是在类中覆盖这个方法  * 方法具体实现可以是重写，也可以选择调用具体接口的默认实现方法  * @version $Id: Person.java, v 0.1 2017年6月9日 下午5:19:00  */</span> <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token keyword">implements</span> <span class="token class-name">PersonInfo</span><span class="token punctuation">,</span> <span class="token class-name">PersonHobby</span> <span class="token punctuation">{<!-- --></span>      <span class="token keyword">private</span> <span class="token class-name">String</span> age<span class="token punctuation">;</span>     <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>      <span class="token punctuation">{<!-- --></span>         age <span class="token operator">=</span> <span class="token string">"age init from Person."</span><span class="token punctuation">;</span>         name <span class="token operator">=</span> <span class="token string">"name init form Person."</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span>      <span class="token annotation punctuation">@Override</span>     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span>      <span class="token comment">//两个接口都有该方法默认实现，进行覆写来解决冲突</span>     <span class="token comment">//方法具体实现可以是重写，也可以选择调用具体接口的默认实现方法</span>     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token comment">/*调用具体的接口默认实现         PersonInfo.super.printName();*/</span>         <span class="token comment">/* 调用具体的接口默认实现         PersonHobby.super.printName();*/</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> <hr/> <p>测试代码</p> <pre><code class="prism language-java"><span class="token comment">/**  * @version $Id: Test.java, v 0.1 2017年6月9日 下午5:45:44  */</span> <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Test</span> <span class="token punctuation">{<!-- --></span>     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>         <span class="token class-name">Person</span> person1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">//可以使用接口声明变量,变量必须引用实现了接口的类对象</span>         <span class="token comment">//但对象的能力只拥有声明的接口类型中的能力</span>         <span class="token comment">//如person3和person4没有printAge()的能力</span>         <span class="token class-name">PersonInfo</span> person2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">PersonHobby</span> person3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">PersonHobby</span> person4 <span class="token operator">=</span> person1<span class="token punctuation">;</span>          person1<span class="token punctuation">.</span><span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         person1<span class="token punctuation">.</span><span class="token function">printAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"-------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         person2<span class="token punctuation">.</span><span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         person2<span class="token punctuation">.</span><span class="token function">printAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"-------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         person3<span class="token punctuation">.</span><span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         person4<span class="token punctuation">.</span><span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">/*              * 对象的能力只拥有声明的接口类型中的能力          * person3和person4没有printAge()能力，下面方法不可用          * person3.printAge();          * person4.printAge();         */</span>         <span class="token comment">//使用接口调用接口中声明的静态方法</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"----接口中静态方法---"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">PersonInfo</span><span class="token punctuation">.</span><span class="token function">printSex</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"----访问接口中常量---"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">PersonInfo</span><span class="token punctuation">.</span>DEFAULT_AGE<span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">PersonInfo</span><span class="token punctuation">.</span>DEFAULT_NAME<span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">PersonInfo</span><span class="token punctuation">.</span>DEFAULT_SEX<span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token class-name">PersonHobby</span><span class="token punctuation">.</span>DEFAULT_HOBBY<span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> <p>测试结果：</p> <pre><code class="prism language-java">name init form <span class="token class-name">Person</span><span class="token punctuation">.</span> age init from <span class="token class-name">Person</span><span class="token punctuation">.</span> <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> name init form <span class="token class-name">Person</span><span class="token punctuation">.</span> age init from <span class="token class-name">Person</span><span class="token punctuation">.</span> <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">-</span> name init form <span class="token class-name">Person</span><span class="token punctuation">.</span> name init form <span class="token class-name">Person</span><span class="token punctuation">.</span> <span class="token operator">--</span><span class="token operator">--</span>接口中静态方法<span class="token operator">--</span><span class="token operator">-</span> 男 <span class="token operator">--</span><span class="token operator">--</span>访问接口中常量<span class="token operator">--</span><span class="token operator">-</span> <span class="token number">18</span> TIANCI 男 运动 </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-82594.htm">宠物免费领养网站（宠物免费领养网站）</a></p>
+                                        <p>下一个：<a href="/news/article-83309.htm">益丰宠物医院怎么样收费（益丰宠物医院电话）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-2-17-node-share-links.htm" title="免费机场 | 2月17日20.4M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">免费机场 | 2月17日20.4M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-61633.htm" title="公务员国考报名和考试时间冲突吗（国考和公务员考试时间有冲突吗）">公务员国考报名和考试时间冲突吗（国考和公务员考试时间有冲突吗）</a></li>
+                        <li class="py-2"><a href="/news/article-78436.htm" title="动物医院故事在线听（动物医院纪录片）">动物医院故事在线听（动物医院纪录片）</a></li>
+                        <li class="py-2"><a href="/news/article-59898.htm" title="mybatis idea多级目录的坑">mybatis idea多级目录的坑</a></li>
+                        <li class="py-2"><a href="/news/article-66527.htm" title="动物防疫站营业时间是几点（动物防疫站电话号码多少）">动物防疫站营业时间是几点（动物防疫站电话号码多少）</a></li>
+                        <li class="py-2"><a href="/news/article-69076.htm" title="宠物领养协议书范本模板图片下载 宠物领养协议书范本模板图片下载大全">宠物领养协议书范本模板图片下载 宠物领养协议书范本模板图片下载大全</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-16-free-high-speed-nodes.htm" title="免费机场 | 2月16日18.7M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 2月16日18.7M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-81881.htm" title="PHP后期静态绑定">PHP后期静态绑定</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-2-23-node-share-links.htm" title="免费机场 | 2月23日21.2M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">免费机场 | 2月23日21.2M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-58179.htm" title="动物疫苗的制备流程（动物疫苗的生产工艺流程）">动物疫苗的制备流程（动物疫苗的生产工艺流程）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">84</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">67</span> <a href="/date/2025-02/" title="2025-02 归档">2025-02</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
