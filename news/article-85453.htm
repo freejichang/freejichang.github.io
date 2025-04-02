@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-85453.htm" />
+    <meta charset="utf-8">
+    <title>go实践十九 web开发使用模板获取form参数</title>
+        <meta name="description" content="新建一个 testform1.gtpl 文件，内容如下： &lt;!doctype html&gt; &lt;html lang="en"&gt; &lt;head&gt;     &lt;meta " />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-85453.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="go实践十九 web开发使用模板获取form参数" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/e0c30e7651874a9f477e5a826805a2a3.webp" />
+        <meta property="og:release_date" content="2025-03-31T08:41:55" />
+    <meta property="og:updated_time" content="2025-03-31T08:41:55" />
+        <meta property="og:description" content="新建一个 testform1.gtpl 文件，内容如下： &lt;!doctype html&gt; &lt;html lang="en"&gt; &lt;head&gt;     &lt;meta " />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="go实践十九 web开发使用模板获取form参数">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>go实践十九 web开发使用模板获取form参数</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>新建一个 testform1.gtpl 文件，内容如下：</h2> <pre class="has"><code class="language-Go">&lt;!doctype html&gt; &lt;html lang="en"&gt; &lt;head&gt;     &lt;meta charset="UTF-8"&gt;     &lt;meta name="viewport"           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"&gt;     &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt;     &lt;title&gt;登录&lt;/title&gt; &lt;/head&gt; &lt;body&gt; &lt;form action="/login" method="post"&gt;     用户名：&lt;input type="text" name="username"&gt;     密码：&lt;input type="password" name="password"&gt;     &lt;input type="submit" value="登录"&gt; &lt;/form&gt; &lt;/body&gt; &lt;/html&gt;</code></pre> <h2>新建一个 testform1.go 文件，内容如下：</h2> <pre class="has"><code class="language-Go">package main  import ( 	"fmt" 	"html/template" 	"log" 	"net/http" 	"net/url" 	"strings" )  func sayhelloName(w http.ResponseWriter,r *http.Request)  { 	r.ParseForm() //解析url传递的参数，对于post则解析响应包的主体(request body) 	//注意：如果没有调用 ParseForm方法，下面无法获取表单的数据  	//下面这些信息是输出到服务器端的打印信息 	fmt.Println(r.Form) 	fmt.Println("path",r.URL.Path) 	fmt.Println("scheme",r.URL.Scheme) 	fmt.Println(r.Form["url_long"]) 	for k,v := range r.Form{ 		fmt.Println("key：",k) 		fmt.Println("val：",strings.Join(v,"")) 	}  	//下面这个写入到w 的是输出到客户端的 	fmt.Fprintf(w,"hello testform1.go") }  func login(w http.ResponseWriter,r *http.Request)  { 	fmt.Println("method：",r.Method) //获取请求的方法 	if r.Method == "GET"{ 		t,_ := template.ParseFiles("testform1.gtpl") 		log.Println(t.Execute(w,nil)) 	}else{ 		r.ParseForm()       //解析url传递的参数，对于POST则解析响应包的主体（request body） 		//请求的是登录数据，name执行登录的逻辑判断 		fmt.Println("username：",r.Form["username"]) 		fmt.Println("password：",r.Form["password"])  		//Request本身也提供了FormValue()函数来获取用户提交的参数。 		// 如r.Form["username"]也可写成r.FormValue("username")。 		// 调用r.FormValue时会自动调用r.ParseForm，所以不必提前调用。 		// r.FormValue只会返回同名参数中的第一个，若参数不存在则返回空字符串。 		fmt.Println() 		fmt.Println("FormValue") 		fmt.Println("username：",r.FormValue("username")) 		fmt.Println("password：",r.FormValue("password")) 		fmt.Println("verify_code：",r.FormValue("verify_code"))  		//request.Form是一个url.Values类型，里面存储的是对应的类似key=value的信息，下面展示了可以对form数据进行的一些操作: 		fmt.Println() 		fmt.Println("url.Values") 		v := url.Values{} 		v.Set("name", "Ava") 		v.Add("friend", "Jess") 		v.Add("friend", "Sarah") 		v.Add("friend", "Zoe") 		// v.Encode() == "name=Ava&amp;friend=Jess&amp;friend=Sarah&amp;friend=Zoe" 		fmt.Println(v.Get("name")) 		fmt.Println(v.Get("friend")) 		fmt.Println(v["friend"]) 	}  }  func main() { 	http.HandleFunc("/",sayhelloName) //设置路由 	http.HandleFunc("/login",login) //设置路由 	err := http.ListenAndServe(":6665",nil) //设置监听的端口 	if err != nil{ 		log.Fatal("ListenAndServe：",err) 	} }</code></pre> <h2>运行 testform1.go ，启动服务器&nbsp;：</h2> <pre class="has"><code class="language-Go">[root@izj6c4jirdug8kh3uo6rdez goweb]# go run testform1.go</code></pre> <h2>浏览器运行<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=http://daily886.com:6665/login"  rel="nofollow">http://域名:6665/login</a>&nbsp; ，输入数据后登录</h2> <h2>服务器端即可看到表单参数：</h2> <pre class="has"><code class="language-Go">method： POST username： [123] password： [4444]  FormValue username： 123 password： 4444 verify_code：   url.Values Ava Jess [Jess Sarah Zoe]</code></pre> <p>参考：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.golang123.com/book/9?chapterID=157"  rel="nofollow">https://www.golang123.com/book/9?chapterID=157</a></p> </div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-85452.htm">PHP如何在同一文件中定义多个命名空间</a></p>
+                                        <p>下一个：<a href="/news/article-86169.htm">妙三多猫疫苗好吗（妙三多猫疫苗都预防哪些疾病）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-84729.htm" title="狗粮生产机器设备二手（狗粮加工机器设备二手）">狗粮生产机器设备二手（狗粮加工机器设备二手）</a></li>
+                        <li class="py-2"><a href="/news/article-75718.htm" title="电视剧雾里看花（电视剧雾里看花 名台词）">电视剧雾里看花（电视剧雾里看花 名台词）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-15-free-v2ray.htm" title="免费机场 | 3月15日20.9M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 3月15日20.9M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-69076.htm" title="宠物领养协议书范本模板图片下载 宠物领养协议书范本模板图片下载大全">宠物领养协议书范本模板图片下载 宠物领养协议书范本模板图片下载大全</a></li>
+                        <li class="py-2"><a href="/news/article-67774.htm" title="疫苗分类包括动物疫苗吗为什么呢（动物疫苗属于疫苗分类吗）">疫苗分类包括动物疫苗吗为什么呢（动物疫苗属于疫苗分类吗）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-28-free-subscribe-node.htm" title="免费机场 | 3月28日18.7M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址">免费机场 | 3月28日18.7M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-22-node-share-links.htm" title="免费机场 | 3月22日20.6M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址">免费机场 | 3月22日20.6M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-4-clash-v2ray-ss-ssr.htm" title="免费机场 | 3月4日21.4M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址">免费机场 | 3月4日21.4M/S|免费VPN/Shadowrocket/V2ray/Clash/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-65897.htm" title="mysql的时间用什么存储_MySQL存储时间类型选择的问题讲解">mysql的时间用什么存储_MySQL存储时间类型选择的问题讲解</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-9-node-share-links.htm" title="免费机场 | 3月9日22.3M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址">免费机场 | 3月9日22.3M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">6</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <p>
+                        <a href="/">首页</a> | 
+                        <a href="/free-node/">免费节点</a> | 
+                        <a href="/news/">新闻资讯</a> |
+                        <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
