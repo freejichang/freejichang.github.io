@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-87599.htm" />
+    <meta charset="utf-8">
+    <title>springboot过滤器和拦截器的实现和区别</title>
+        <meta name="description" content="原文链接：https://segmentfault.com/a/1190000012072060   前言 springmvc中有两种很普遍的AOP实现：1.过滤器（Filter）2.拦截器（Inte" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-87599.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="springboot过滤器和拦截器的实现和区别" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/6d79e939c1574c9d1b6f2f1e8880e460.webp" />
+        <meta property="og:release_date" content="2025-04-03T08:33:13" />
+    <meta property="og:updated_time" content="2025-04-03T08:33:13" />
+        <meta property="og:description" content="原文链接：https://segmentfault.com/a/1190000012072060   前言 springmvc中有两种很普遍的AOP实现：1.过滤器（Filter）2.拦截器（Inte" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="springboot过滤器和拦截器的实现和区别">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>springboot过滤器和拦截器的实现和区别</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <p>原文链接：https://segmentfault.com/a/1190000012072060</p> <p></p> <div class="article fmt article__content" style="line-height:1.6;color:rgb(51,51,51);font-family:'-apple-system', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif;font-size:14px;background-color:rgb(255,255,255);"> <h2 style="font-family:inherit;font-weight:500;line-height:1.2;color:inherit;margin-top:0px;margin-bottom:0px;font-size:1.75em;border-bottom:1px solid rgb(238,238,238);padding-bottom:10px;">前言</h2> <p style="margin-top:1.5em;margin-bottom:1.5em;">springmvc中有两种很普遍的AOP实现：<br />1.过滤器（Filter）<br />2.拦截器（Interceptor）</p> <p style="margin-top:1.5em;margin-bottom:1.5em;">本篇面对的是一些刚接触springboot的人群<br />所以主要讲解filter和interceptor的简单实现和它们之间到底有什么区别<br />（一些复杂的功能我会之后发出文章，请记得关注）</p> <h2 style="font-family:inherit;font-weight:500;line-height:1.2;color:inherit;margin-top:1.5em;margin-bottom:0px;font-size:1.75em;border-bottom:1px solid rgb(238,238,238);padding-bottom:10px;">Filter的简单实现</h2> <p style="margin-top:1.5em;margin-bottom:1.5em;">字面意思：过滤器就是过滤的作用，在web开发中过滤一些我们指定的url<br />那么它能帮我们过滤什么呢？<br />那功能可就多了：<br />比如过拦截掉我们不需要的接口请求<br />修改请求（request）和响应（response）内容<br />完成CORS跨域请求等等</p> <p style="margin-top:1.5em;margin-bottom:1.5em;">现在我们来实现一个简单的过滤器：<br />可以新建一个filter包，随着项目的扩大过滤器会越来越多<br />在这里我新建了一个<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">TestFilter</code>类，实现Filter接口</p> <pre class="hljs less" style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:1em;margin-bottom:1.5em;line-height:1.45;color:rgb(51,51,51);border:none;max-height:35em;"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;"><span class="hljs-variable" style="color:rgb(0,128,128);">@Component</span><span class="hljs-variable" style="color:rgb(0,128,128);">@WebFilter</span>(urlPatterns =<span class="hljs-string" style="color:rgb(221,17,68);">"/Blogs"</span>,filterName =<span class="hljs-string" style="color:rgb(221,17,68);">"blosTest"</span>) public class TestFilter implements Filter{}</code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">我们一步步来<br />1.@Component就是把这个类注入到IOC容器中<br />2.@WebFilter(urlPatterns = "/Blogs",filterName = "blosTest")说明这是一个web过滤器，它拦截的url为<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">/Blogs</code>，过滤器名字为<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">blogsTest</code></p> <p style="margin-top:1.5em;margin-bottom:1.5em;">下面贴出实现接口之后的三个重构方法：</p> <pre class="hljs aspectj" style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:1em;margin-bottom:1.5em;line-height:1.45;color:rgb(51,51,51);border:none;max-height:35em;"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;"><span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">void</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">init</span><span class="hljs-params">(FilterConfig filterConfig)</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">throws</span> ServletException</span>{      }<span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">void</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">doFilter</span><span class="hljs-params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">throws</span> IOException, ServletException</span>{         HttpServletRequest request= (HttpServletRequest) servletRequest;         HttpServletResponse response = (HttpServletResponse) servletResponse;         System.out.printf(<span class="hljs-string" style="color:rgb(221,17,68);">"过滤器实现"</span>);         filterChain.doFilter(request,response);     }<span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">void</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">destroy</span><span class="hljs-params">()</span></span>{      }</code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">初始化（init）和摧毁（destroy）方法一般不会用到，具体使用看下源码便知<br />doFilter（）是过滤器的核心<br />注意：在实现接口方法之后，我们要转换request和response类型至HttpServlet，否则接下去的操作可能会报错。<br />如果过滤通过，执行<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">filterChain.doFilter(request,response);</code><br />说明这个url已经经过了我们的Filter<br />其他不要设置，我们执行看下结果：</p> <p style="margin-top:1.5em;margin-bottom:1.5em;"><img decoding="async" src="http://img.555519.xyz/uploads/20221117/ad34e5af7097155366f4ae460429a3b3.jpg" alt="springboot过滤器和拦截器的实现和区别"></p> <p style="margin-top:1.5em;margin-bottom:1.5em;"><img decoding="async" src="http://img.555519.xyz/uploads/20221117/d5536a6efcf2d748bbe4b3cee6024575.jpg" alt="springboot过滤器和拦截器的实现和区别"></p> <p style="margin-top:1.5em;margin-bottom:1.5em;">可以看到，只需要一个类我们就实现了一个简单的过滤器</p> <p style="margin-top:1.5em;margin-bottom:1.5em;">当然可以不用注解的方式，配置启动类</p> <pre class="hljs haxe" style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:1em;margin-bottom:1.5em;line-height:1.45;color:rgb(51,51,51);border:none;max-height:35em;"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;"><span class="hljs-comment" style="color:rgb(153,153,136);">//过滤器</span>     @Bean<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span> FilterRegistrationBean filterRegistrationBean(){         FilterRegistrationBean filterRegistrationBean =<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">new</span><span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">FilterRegistrationBean</span>();         List&lt;<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">String</span>&gt; urlPatterns =<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">new</span><span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">ArrayList</span>&lt;<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">String</span>&gt;();          TestFilter testFilter =<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">new</span><span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">TestFilter</span>();<span class="hljs-comment" style="color:rgb(153,153,136);">//new过滤器</span>         urlPatterns.add(<span class="hljs-string" style="color:rgb(221,17,68);">"/Blogs"</span>);<span class="hljs-comment" style="color:rgb(153,153,136);">//指定需要过滤的url</span>         filterRegistrationBean.setFilter(testFilter);<span class="hljs-comment" style="color:rgb(153,153,136);">//set</span>         filterRegistrationBean.setUrlPatterns(urlPatterns);<span class="hljs-comment" style="color:rgb(153,153,136);">//set</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">return</span> filterRegistrationBean;     }</code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">这也是可以的，本人其实还是比较推荐这种方式添加过滤器</p> <h2 style="font-family:inherit;font-weight:500;line-height:1.2;color:inherit;margin-top:1.5em;margin-bottom:0px;font-size:1.75em;border-bottom:1px solid rgb(238,238,238);padding-bottom:10px;">Interceptor的简单实现</h2> <p style="margin-top:1.5em;margin-bottom:1.5em;">拦截器的实现比过滤器稍微复杂一点<br />我们同样可以新建一个interceptor包<br />在里面新建一个名为<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">MyInterceptor</code>的类</p> <pre class="hljs actionscript" style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:1em;margin-bottom:1.5em;line-height:1.45;color:rgb(51,51,51);border:none;max-height:35em;"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-class"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">class</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">MyInterceptor</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">implements</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">HandlerInterceptor</span></span>{}</code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">这个类实现了<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">HandleInterceptor</code>接口<br />直接贴类代码，我会在代码中注释功能</p> <pre><code class="language-java"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-class"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">class</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">MyInterceptor</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">implements</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">HandlerInterceptor</span></span>{<span class="hljs-comment" style="color:rgb(153,153,136);">//在请求处理之前进行调用（Controller方法调用之前</span><span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">boolean</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">preHandle</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">throws</span> Exception</span>{         System.out.printf(<span class="hljs-string" style="color:rgb(221,17,68);">"preHandle被调用"</span>);<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">return</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">true</span>;<span class="hljs-comment" style="color:rgb(153,153,136);">//如果false，停止流程，api被拦截</span>     }<span class="hljs-comment" style="color:rgb(153,153,136);">//请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）</span><span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">void</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">postHandle</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">throws</span> Exception</span>{         System.out.println(<span class="hljs-string" style="color:rgb(221,17,68);">"postHandle被调用"</span>);     }<span class="hljs-comment" style="color:rgb(153,153,136);">//在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）</span><span class="hljs-meta" style="color:rgb(153,153,153);font-weight:bold;">@Override</span><span class="hljs-function"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">public</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">void</span><span class="hljs-title" style="color:rgb(153,0,0);font-weight:bold;">afterCompletion</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">throws</span> Exception</span>{         System.out.println(<span class="hljs-string" style="color:rgb(221,17,68);">"afterCompletion被调用"</span>);     } }</code></code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">它依次实现了三个方法<br />相比过滤器，拦截器还需要在springmvc中注入<br />所以我们打开启动类，写入以下代码</p> <pre class="hljs scala" style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:1em;margin-bottom:1.5em;line-height:1.45;color:rgb(51,51,51);border:none;max-height:35em;"><code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:1em;color:inherit;background:none;white-space:inherit;">public<span class="hljs-class"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">class</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">WarApplication</span></span>{      public static void main(<span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">String</span>[] args) {<span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">SpringApplication</span>.run(<span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">WarApplication</span>.<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">class</span>, args);     }<span class="hljs-comment" style="color:rgb(153,153,136);">//mvc控制器</span><span class="hljs-comment" style="color:rgb(153,153,136);">//@Configuration</span>     static<span class="hljs-class"><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">class</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">WebMvcConfigurer</span><span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">extends</span><span class="hljs-title" style="color:rgb(68,85,136);font-weight:bold;">WebMvcConfigurerAdapter</span></span>{<span class="hljs-comment" style="color:rgb(153,153,136);">//增加拦截器</span>         public void addInterceptors(<span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">InterceptorRegistry</span> registry){             registry.addInterceptor(<span class="hljs-keyword" style="color:rgb(51,51,51);font-weight:bold;">new</span><span class="hljs-type" style="color:rgb(68,85,136);font-weight:bold;">MyInterceptor</span>())<span class="hljs-comment" style="color:rgb(153,153,136);">//指定拦截器类</span>                     .addPathPatterns(<span class="hljs-string" style="color:rgb(221,17,68);">"/Handles"</span>);<span class="hljs-comment" style="color:rgb(153,153,136);">//指定该类拦截的url</span>         }     } }</code></pre> <p style="margin-top:1.5em;margin-bottom:1.5em;">这里我在<code style="font-family:'Source Code Pro', Consolas, Menlo, Monaco, 'Courier New', monospace;font-size:.93em;padding:2px 4px;">/Handles</code>这个url中进行拦截<br />代码写完了，来看下结果</p> <p style="margin-top:1.5em;margin-bottom:1.5em;"><img decoding="async" src="http://img.555519.xyz/uploads/20221117/ca266193656d45eff2eb507cab322cbf.jpg" alt="springboot过滤器和拦截器的实现和区别"></p> <p style="margin-top:1.5em;margin-bottom:1.5em;"><img decoding="async" src="http://img.555519.xyz/uploads/20221117/1416223e340d83c7de25875de097e20f.jpg" alt="springboot过滤器和拦截器的实现和区别"></p> <p style="margin-top:1.5em;margin-bottom:1.5em;">当进入指定url时，我们执行到了拦截器<br />接下来就可以根据需求去使用拦截器了</p> <h2 style="font-family:inherit;font-weight:500;line-height:1.2;color:inherit;margin-top:1.5em;margin-bottom:0px;font-size:1.75em;border-bottom:1px solid rgb(238,238,238);padding-bottom:10px;">区别</h2> <p style="margin-top:1.5em;margin-bottom:1.5em;">过滤器和拦截器非常相似，但是它们有很大的区别<br />最简单明了的区别就是<strong>过滤器可以修改request，而拦截器不能<br />过滤器需要在servlet容器中实现，拦截器可以适用于javaEE，javaSE等各种环境<br />拦截器可以调用IOC容器中的各种依赖，而过滤器不能<br />过滤器只能在请求的前后使用，而拦截器可以详细到每个方法</strong><br />区别很多，大家可以去查下</p> <p style="margin-top:1.5em;margin-bottom:1.5em;">总的来说<br />过滤器就是筛选出你要的东西，比如requeset中你要的那部分<br />拦截器在做安全方面用的比较多，比如终止一些流程<br />网上有一张图片很不错，这里拷过来给大家看一下</p> <p style="margin-top:1.5em;margin-bottom:1.5em;"><img decoding="async" src="http://img.555519.xyz/uploads/20221117/d4c40f031d9e5f9175ff938966109a48.jpg" alt="springboot过滤器和拦截器的实现和区别"></p> <p style="margin-top:1.5em;margin-bottom:0px;"><strong>以上便是springboot中过滤器和拦截器的实现和区别；<br /></strong></p> </div> <div class="mt20 ad-detail-mm hidden-xs" style="background:rgb(255,255,255) url(&quot;../img/ad_bg.svg&quot;);max-height:90px;color:rgb(51,51,51);font-family:'-apple-system', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif;font-size:14px;margin-top:20px;"></div> <p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-86884.htm">人和动物提取的狂犬疫苗区别（人狂犬疫苗和动物提炼的狂犬疫苗有什么区别）</a></p>
+                                        <p>下一个：<a href="/news/article-87600.htm">湖北最大的大闸蟹市场（湖北哪里有大闸蟹）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-85452.htm" title="PHP如何在同一文件中定义多个命名空间">PHP如何在同一文件中定义多个命名空间</a></li>
+                        <li class="py-2"><a href="/news/article-71031.htm" title="女人养猫（女人养猫是什么心态）">女人养猫（女人养猫是什么心态）</a></li>
+                        <li class="py-2"><a href="/news/article-68418.htm" title="济南宠物领养活动有哪些（济南宠物领养活动有哪些地方）">济南宠物领养活动有哪些（济南宠物领养活动有哪些地方）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-8-free-v2ray-subscribe.htm" title="免费机场 | 3月8日20.6M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址">免费机场 | 3月8日20.6M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-84730.htm" title="哈尔滨农业大学动物医院怎么样知乎（哈尔滨农业大学动物医院电话）">哈尔滨农业大学动物医院怎么样知乎（哈尔滨农业大学动物医院电话）</a></li>
+                        <li class="py-2"><a href="/news/article-86169.htm" title="妙三多猫疫苗好吗（妙三多猫疫苗都预防哪些疾病）">妙三多猫疫苗好吗（妙三多猫疫苗都预防哪些疾病）</a></li>
+                        <li class="py-2"><a href="/news/article-65898.htm" title="宠物粮厂利润怎么样呀（宠物粮厂利润怎么样呀）">宠物粮厂利润怎么样呀（宠物粮厂利润怎么样呀）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-24-free-v2ray-subscribe.htm" title="免费机场 | 3月24日20.3M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址">免费机场 | 3月24日20.3M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-19-clash-v2ray-ss-ssr.htm" title="免费机场 | 3月19日19.2M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址">免费机场 | 3月19日19.2M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-89058.htm" title="Java中线程状态+线程安全问题+synchronized的用法详解_java_">Java中线程状态+线程安全问题+synchronized的用法详解_java_</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>

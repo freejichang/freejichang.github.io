@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-89058.htm" />
+    <meta charset="utf-8">
+    <title>Java中线程状态+线程安全问题+synchronized的用法详解_java_</title>
+        <meta name="description" content="目录  java中的线程状态???? 线程安全问题案例分析????  多线程对同一变量进行写操作???? 内存可见性问题???? 指令重排序问题????  synchronized的用法????  s" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-89058.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="Java中线程状态+线程安全问题+synchronized的用法详解_java_" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/3898102957a1b38288d1a7080e9c7288.webp" />
+        <meta property="og:release_date" content="2025-04-05T08:19:39" />
+    <meta property="og:updated_time" content="2025-04-05T08:19:39" />
+        <meta property="og:description" content="目录  java中的线程状态???? 线程安全问题案例分析????  多线程对同一变量进行写操作???? 内存可见性问题???? 指令重排序问题????  synchronized的用法????  s" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Java中线程状态+线程安全问题+synchronized的用法详解_java_">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>Java中线程状态+线程安全问题+synchronized的用法详解_java_</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="navCategory"> <h5 class="catalogue">目录</h5> <ul class="first_class_ul"> <li><a href="#_label0" rel="nofollow">java中的线程状态????</a></li> <li><a href="#_label1" rel="nofollow">线程安全问题案例分析????</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_1_0" rel="nofollow">多线程对同一变量进行写操作????</a></li> <li><a href="#_lab2_1_1" rel="nofollow">内存可见性问题????</a></li> <li><a href="#_lab2_1_2" rel="nofollow">指令重排序问题????</a></li> </ul> <li><a href="#_label2" rel="nofollow">synchronized的用法????</a></li> <ul class="second_class_ul"> <li><a href="#_lab2_2_3" rel="nofollow">synchronized起作用的本质????</a></li> <li><a href="#_lab2_2_4" rel="nofollow">修饰普通方法????</a></li> <li><a href="#_lab2_2_5" rel="nofollow">修饰静态方法⚡️</a></li> <li><a href="#_lab2_2_6" rel="nofollow">修饰代码块????</a></li> </ul> <li><a href="#_label3" rel="nofollow">Conclusion????</a></li> <ul class="second_class_ul"></ul> </ul> </div> <p class="maodian"><a name="_label0" rel="nofollow"></a></p> <h2>java中的线程状态????</h2> <p>在操作系统层面,一个线程就两个状态:就绪和阻塞状态.</p> <p>但是java中为了在线程阻塞时能够更快速的知晓一个线程阻塞的原因,又将阻塞的状态进行了细化.</p> <p><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/7d0ca2d0f3a0e9d40804f08908fcc71b.jpg"></p> <ul> <li>NEW:线程对象已经创建好了,但是系统层面的线程还没创建好,或者说线程对象还没调用start()</li> <li>TERMINATED:系统中的线程已经销毁,但是代码中的线程对象还在,也就是run()跑完了,Thread对象还在</li> <li>RUNNABLE:线程位于就绪队列,随时都有可能被cpu调度执行</li> <li>TIMED_WAITING:线程执行过程中,线程对象调用了sleep(),进入阻塞,休眠时间到了,就会回到就绪队列</li> <li>BLOCKED:有一个线程将一个对象上锁(synchronized)之后,另一个线程也想给这个对象上锁,就会陷入BLOCKED状态,只有第一个线程将锁对象解锁了,后一个线程才有可能给这个对象进行上锁.</li> <li>WAITING:搭配synchronized进行使用wait(),一旦一个线程调用了wait(),会先将所对象解锁,等到另一个线程进行notify(),之后wait中的线程才会被唤醒,当然也可以在wait()中设置一个最长等待时间,防止出现死等.</li> </ul> <p class="maodian"><a name="_label1" rel="nofollow"></a></p> <h2>线程安全问题案例分析????</h2> <p class="maodian"><a name="_lab2_1_0" rel="nofollow"></a></p> <h3>多线程对同一变量进行写操作????</h3> <ol> <li>概念:一串代码什么时候叫作有线程安全问题呢?首先线程安全问题的罪恶之源是,多线程并发执行的时候,会有抢占式执行的现象,这里的抢占式执行,执行的是机器指令!那一串代码什么时候叫作有线程安全问题呢?多线程并发时,不管若干个线程怎么去抢占式执行他们的代码,都不会影响最终结果,就叫作线程安全,但是由于抢占式执行,出现了和预期不一样的结果,就叫作有线程安全问题,出bug了!</li> <li>典型案例:使用两个线程对同一个数进行自增操作10w次:</li> </ol> <div class="ay1code"> <pre class="brush:java;">public class Demo1 {      private static int count=0;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              for(int i=0;i&lt;50000;i++){                  count++;              }          });          t1.start();          Thread t2=new Thread(()-&gt;{          t2.start();          try {              t1.join();              t2.join();          } catch (InterruptedException e) {              e.printStackTrace();          }          System.out.println(count);      }  }  //打印结果:68994  </pre> </div> <p>显然预期结果是10w,但算出来就是6w多,这就是出现了线程安全问题.</p> <p><strong>分析原因</strong>:</p> <p>仅针对每个线程的堆count进行自增的操作:首先要明白,进行一次自增的机器指令有三步:从主内存中把count值拿到cpu寄存器中-&gt;把寄存器中的count值进行自增1-&gt;把寄存器中的count值刷新到主内存中,我们姑且把这三步叫作:load-&gt;add-&gt;save</p> <p>我们假设就是在一个cpu上(画两个cpu好表示)并发执行两组指令(就不会出现同时load这样的情况了):</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/1b4fdd1cb1ca4449d39dd906e60a5f28.jpg"></p> <p>如出现上图的情况:</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/c81b09db1a1f4407382abf839a45bf14.jpg"></p> <p>观察发现:两个线程都是执行了一次count++,但是两次++的结果却不如意,相当于只进行了一次自增,上述就是出现了线程安全问题了.</p> <p>并且我们可以预测出上述代码的结果范围:5w-10w之间!,为什么呢?</p> <p>上面两张图表示的是出现线程安全问题的情况,表现的结果就是两次加加当一次去用了,如果两个线程一直处于这样的状态(也是最坏的状态了),可不就是计算结果就是5w咯,那如果两个线程一直是一个线程完整的执行完load-add-save之后,另一个线程再去执行这样的操作,那就串行式执行了,可不就是10w咯.</p> <p>3.针对上述案例如何去解决呢?</p> <p>案例最后也提到了,只要能够实现串行式执行,就能保证结果的正确性,那java确实有这样的功能供我们使用,即synchronized关键字的使用.</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/8fab40bfa14a2932f2cd60dd102435e5.jpg"></p> <p>也就是说:cpu1执行load之前先给锁对象进行加锁,save之后再进行解锁,cpu2此时才能去给那个对象进行上锁,并进行一系列的操作.此时也就是保证了load-add-save的原子性,使得这三个步骤要么就别执行,执行就一口气执行完.</p> <p><strong>那你可能会提问,那这样和只用一个main线程去计算自增10w次有什么区别,创建多线程还有什么意义呢?</strong></p> <p>意义很大,因为我们创建的线程很多时候不仅仅只是一个操作,光针对自增我们可以通过加锁防止出现线程安全问题,但是各线程的其他操作要是不涉及线程安全问题那就可以并发了呀,那此时不就大大提升了执行效率咯.</p> <p>4.具体如何加锁呢?</p> <p>此处先只说一种加锁方式,先把上述案例的问题给解决了再说.</p> <p>使用关键字synchronized,此处使用的是给普通方法加synchronized修饰的方法(除此之外,synchronized还可以修饰代码块和静态方法)</p> <div class="ay1code"> <pre class="brush:java;">class Counter{      private int count;      synchronized public void increase(){          this.count++;      }      public int getCount(){          return this.count;      }  }  public class Demo2 {      private static int num=50000;      public static void main(String[] args) {          Counter counter=new Counter();//此时对象中的count值默认就是0          Thread t1=new Thread(()-&gt;{              for (int i = 0; i &lt; num; i++) {                  counter.increase();              }          });          t1.start();            Thread t2=new Thread(()-&gt;{              for (int i = 0; i &lt; num; i++) {                  counter.increase();              }          });          t2.start();            try {              t1.join();              t2.join();          } catch (InterruptedException e) {              e.printStackTrace();          }            System.out.println(counter.getCount());      }  }//打印10W  </pre> </div> <p class="maodian"><a name="_lab2_1_1" rel="nofollow"></a></p> <h3>内存可见性问题????</h3> <p>首先说明:这是有编译器优化导致的,其次要知道cpu读取变量时:先从主内存将变量的值存至缓存或者寄存器中,cpu计算时再在寄存器中读取这个值.</p> <p>当某线程频繁的从内存中读取一个不变的变量时,编译器将会把从内存获取变量的值直接优化成从寄存器直接获取.之所以这样优化,是因为,cpu从主内存中读取一个变量比在缓存或者寄存器中读取一个变量的值慢成千上万倍,如果每每在内存中读到的都是同一个值,既然缓存里头已经有这个值了,干嘛还大费周折再去主内存中进行获取呢,直接从缓存中直接读取就可以了,可提升效率.</p> <p><strong>但是</strong>:一旦一个线程被优化成上述的情况,那如果有另一个线程把内存中的值修改了,我被优化的线程还傻乎乎的手里拿着修改之前的值呢,或者内存中的变量值被修改了,被优化的线程此时已经感应不到了.</p> <p>具体而言:</p> <div class="ay1code"> <pre class="brush:java;">public class Demo3 {      private static boolean flag=false;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              while(!flag){                  System.out.println("我是优化完之后直接读取寄存器中的变量值才打印的哦!");              }          });          t1.start();            flag=true;          System.out.println("我已经在主线程中修改了标志位");      }  }  </pre> </div> <p>运行上述代码之后,程序并不会终止,而是一直在那打印t1线程中的打印语句.</p> <p>如何解决上述问题:</p> <p>引入关键字volatile:防止内存可见性问题,修饰一个变量,那某线程想获取该变量的值的时候,只能去主内存中获取,其次它还可以防止指令重排序,指令重排问题会在线程安全的单例模式(懒汉)进行介绍.具体:</p> <div class="ay1code"> <pre class="brush:java;">public class Demo3 {      private static volatile boolean flag=false;      public static void main(String[] args) {          Thread t1=new Thread(()-&gt;{              while(!flag){                  System.out.println("我是优化完之后直接读取寄存器中的变量值才打印的哦!");              }          });          t1.start();            try {              Thread.sleep(1);//主线程给t1留有充足的时间先跑起来          } catch (InterruptedException e) {              e.printStackTrace();          }          flag=true;          System.out.println("我已经在主线程中修改了标志位");      }  }  //打印若干t1中的打印语句之后,主线程main中修改标志位之后,可以终止t1  </pre> </div> <p><strong>注意</strong>:上述优化现象只会出现在频繁读的情况,如果不是频繁读,就不会出现那样的优化.</p> <p class="maodian"><a name="_lab2_1_2" rel="nofollow"></a></p> <h3>指令重排序问题????</h3> <p>生活案例:买菜</p> <p style="text-align:center"><img decoding="async" alt="" src="http://img.555519.xyz/uploads3/20220413/ddee621ffa2062dd46165190d0167699.jpg"></p> <p>如果是傻乎乎的按照菜单从上到下的去买菜,从路线图可以看出,不必要的路是真的没少走.</p> <p>如果执行代码时,编译器认为某些个代码调整一下顺序并不会影响结果,那代码的执行顺序就会被调整,就比如可以把上面买菜的顺序调整成:黄瓜-&gt;萝卜-&gt;青菜-&gt;茄子</p> <p>单线程这样的指令重排一般不会出现问题,但是多线程并发时,还这样优化,就容易出现问题</p> <p>针对这样的问题,如果是针对一个变量,我们可以使用volatile修饰,如果是针对代码块,我们可以使用synchronized.</p> <p class="maodian"><a name="_label2" rel="nofollow"></a></p> <h2>synchronized的用法????</h2> <ul> <li>synchronized起作用的本质</li> <li>修饰普通方法</li> <li>修饰静态方法</li> <li>修饰代码块</li> </ul> <p class="maodian"><a name="_lab2_2_3" rel="nofollow"></a></p> <h3>synchronized起作用的本质????</h3> <p>因为我们知道java中所有类都继承了Object,所以所有类都包含了Object的部分,我们可以称这继承的部分是"对象头",使用synchronized进行对象头中的标志位的修改,就可以做到一个对象的锁一个时刻只能被一个线程所持有,其他线程此时不可抢占.这样的设置,就好像把一个对象给锁住了一样.</p> <p class="maodian"><a name="_lab2_2_4" rel="nofollow"></a></p> <h3>修饰普通方法????</h3> <p>如前述两个线程给同一个count进行自增的案例.不再赘述.此时的所对象就是Counter对象</p> <p class="maodian"><a name="_lab2_2_5" rel="nofollow"></a></p> <h3>修饰静态方法⚡️</h3> <p>与普通方法类似.只不过这个方法可以类名直接调用.</p> <p class="maodian"><a name="_lab2_2_6" rel="nofollow"></a></p> <h3>修饰代码块????</h3> <p>首先修饰代码块需要执行锁对象是谁,所以这里可以分为三类,一个是修饰普通方法的方法体这个代码块的写法,其次是修饰静态方法方法体的写法,最后可以单独写一个Object的对象,来对这个Object对象进行上锁.</p> <div class="ay1code"> <pre class="brush:java;">class Counter{      private int count;      public void increase(){          synchronized(this){              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <div class="ay1code"> <pre class="brush:java;">class Counter{      private static int count;      public static void increase(){          synchronized(Counter.class){//注意这里锁的是类对象哦              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <div class="ay1code"> <pre class="brush:java;">class Counter{      private static int count;      private static Object locker=new Object();      public static void increase(){          synchronized(locker){              count++;          }      }      public int getCount(){          return this.count;      }  }  </pre> </div> <p>注意:java中这种随手拿一个对象就能上锁的用法,是java中一种很有特色的用法,在别的语言中,都是有专门的锁对象的.</p> <p class="maodian"><a name="_label3" rel="nofollow"></a></p> <h2> <strong>Conclusion</strong>????</h2> <p>java中的线程状态,以及如何区分线程安全问题 罪恶之源是抢占式执行多线程对同一个变量进行修改,多线程只读一个变量是没有线程安全问题的修改操作是非原子性的内存可见性引起的线程安全问题指令重排序引起的线程安全问题 synchronized的本质和用法</p> <p>1.java中的线程状态,以及如何区分<br />2.线程安全问题</p> <ul> <li>罪恶之源是抢占式执行</li> <li>多线程对同一个变量进行修改,多线程只读一个变量是没有线程安全问题的</li> <li>修改操作是非原子性的</li> <li>内存可见性引起的线程安全问题</li> <li>指令重排序引起的线程安全问题</li> </ul> <p>3.synchronized的本质和用法</p> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-88331.htm">58同城茶杯犬狗领养（58同城宠物狗狗出售茶杯犬）</a></p>
+                                        <p>下一个：<a href="/news/article-89059.htm">动物疫苗的重要性和意义（动物疫苗包括哪些）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-9-node-share-links.htm" title="免费机场 | 3月9日22.3M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址">免费机场 | 3月9日22.3M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-69073.htm" title="动物疫苗的生产过程是什么（动物疫苗的生产原料有哪些,如何取得）">动物疫苗的生产过程是什么（动物疫苗的生产原料有哪些,如何取得）</a></li>
+                        <li class="py-2"><a href="/news/article-77065.htm" title="开动物诊所需要多大面积 开动物诊所需要多大面积的房子">开动物诊所需要多大面积 开动物诊所需要多大面积的房子</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-10-node-share-links.htm" title="免费机场 | 3月10日21.2M/S|免费VPN/Clash/SSR/Shadowrocket/V2ray免费节点链接地址">免费机场 | 3月10日21.2M/S|免费VPN/Clash/SSR/Shadowrocket/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-high-speed-nodes.htm" title="免费机场 | 3月2日18.8M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址">免费机场 | 3月2日18.8M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-12-free-subscribe-node.htm" title="免费机场 | 3月12日18M/S|免费VPN/V2ray/SSR/Shadowrocket/Clash免费节点链接地址">免费机场 | 3月12日18M/S|免费VPN/V2ray/SSR/Shadowrocket/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-86170.htm" title="动物疫苗经销商有哪些公司上市（动物疫苗销售）">动物疫苗经销商有哪些公司上市（动物疫苗销售）</a></li>
+                        <li class="py-2"><a href="/news/article-67154.htm" title="宠物粮食品牌排名前十有哪些品种（宠物粮厂家）">宠物粮食品牌排名前十有哪些品种（宠物粮厂家）</a></li>
+                        <li class="py-2"><a href="/news/article-69731.htm" title="添组词是什么有哪些(添组词和读音是什么)">添组词是什么有哪些(添组词和读音是什么)</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-5-free-v2ray.htm" title="免费机场 | 4月5日18.2M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 4月5日18.2M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
