@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-91278.htm" />
+    <meta charset="utf-8">
+    <title>python读取hive数据库</title>
+        <meta name="description" content="在大数据工作中经常碰到需要将hive查询数据导入到mysql的需求，常见的方法主要有两种，一是impala，另一种则是pyhive。 一、pyhive方式连接hive数据库 首先是配置相关的环境及使用" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-91278.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="python读取hive数据库" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/ef371cf0467c8c023f569b3607eb84bb.webp" />
+        <meta property="og:release_date" content="2025-04-08T09:55:33" />
+    <meta property="og:updated_time" content="2025-04-08T09:55:33" />
+        <meta property="og:description" content="在大数据工作中经常碰到需要将hive查询数据导入到mysql的需求，常见的方法主要有两种，一是impala，另一种则是pyhive。 一、pyhive方式连接hive数据库 首先是配置相关的环境及使用" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="python读取hive数据库">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>python读取hive数据库</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="htmledit_views"> <h2>在<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://so.csdn.net/so/search?q=%E5%A4%A7%E6%95%B0%E6%8D%AE&amp;spm=1001.2101.3001.7020"  title="大数据" rel="nofollow">大数据</a>工作中经常碰到需要将hive查询数据导入到mysql的需求，常见的方法主要有两种，一是impala，另一种则是pyhive。</h2> <h2>一、pyhive方式连接hive数据库</h2> <p>首先是配置相关的环境及使用的库。sasl、thrift、thrift_sasl、pyhive。</p> <p>&nbsp;其中sasl安装较为麻烦一点，在Linux下直接安装可能会出现sasl.h头文件丢失问题，原因是sasl的源码已经许久没有维护了，代码结构与现有的代码结构不一样，下面分别给出win及Linux下的安装方法。<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl"  title="https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl" rel="nofollow">https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl</a></p> <p><strong>windows下：</strong></p> <p>1.下载sasl安装文件，进行离线安装sasl,下载网址：<a href="http://www.m6000.cn/wp-content/themes/begin%20lts/inc/go.php?url=https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl"  title="https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl" rel="nofollow">https://www.lfd.uci.edu/~gohlke/pythonlibs/#sasl</a>，版本选择适合自己的即可。</p> <p>2.安装:</p> <p>pip install sasl-0.2.1-cp36-cp36m-win_amd64.whl<br /> pip install thrift -i https://pypi.tuna.tsinghua.edu.cn/simple<br /> pip install thrift_sasl==0.3.0 -i https://pypi.tuna.tsinghua.edu.cn/simple<br /> pip install pyhive -i https://pypi.tuna.tsinghua.edu.cn/simple</p> <p><strong>Linux下：</strong></p> <p>如果存在sasl.h头文件问题，可以通过pip安装libsasl2-dev包，再安装sasl</p> <p>apt-get install libsasl2-dev<br /> pip install sasl<br /> pip install thrift&nbsp;<br /> pip install thrift-sasl<br /> pip install PyHive</p> <p>注意不要漏装，否则报错。</p> <h2><strong>二、impala方式连接hive数据库</strong></h2> <p>直接 pip install impala 即可</p> <p>下载好相关库后，我们直接上代码。</p> <pre><code class="language-python">from impala.dbapi import connect from impala.util import as_pandas import pandas as pd from pyhive import hive  class LinkHive(object):     def __init__(self,host,port,database):         self.host = host         self.port = port         # self.username = username         # self.password = password         self.database = database      def __link(self):         # 1、pyhive连接         self.conn = hive.Connection(host=self.host,port=self.port,database=self.database)                  #2、impla连接         # self.conn = connect(host=self.host, port=self.port, database=self.database)         self.cur = self.conn.cursor()         # CUSTOM  LDAP     def selectdata(self,sql):         try:             self.__link()         except Exception as e:              print('link error:')             print(e)         try:             #c = self.cur.fetchall()             pd.read_sql(sql,self.conn) //pihive读取数据             # self.cur.execute(sql) //impala读取数据             # result = as_pandas(self.cur) //impala读取数据后转为pandas的DataFrame         except Exception as e:              print('query error:')             print(e)         # 关闭连接 释放资源         self.cur.close()         self.conn.close()         return result</code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-90532.htm">动物疫苗销售需要什么手续呢多少钱一针（动物疫苗经销商）</a></p>
+                                        <p>下一个：<a href="/news/article-91279.htm">北京观赏动物医院电话地址查询号码（北京观赏动物医院电话地址查询号码）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-4-5-free-v2ray.htm" title="免费机场 | 4月5日18.2M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 4月5日18.2M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-8-free-subscribe-node.htm" title="免费机场 | 4月8日19.5M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址">免费机场 | 4月8日19.5M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-75718.htm" title="电视剧雾里看花（电视剧雾里看花 名台词）">电视剧雾里看花（电视剧雾里看花 名台词）</a></li>
+                        <li class="py-2"><a href="/news/article-79822.htm" title="猫咪三针疫苗间隔必须按规定时间吗（猫咪三针疫苗间隔必须按规定时间吗多久）">猫咪三针疫苗间隔必须按规定时间吗（猫咪三针疫苗间隔必须按规定时间吗多久）</a></li>
+                        <li class="py-2"><a href="/news/article-81205.htm" title="高端猫粮品牌（最高端猫粮）">高端猫粮品牌（最高端猫粮）</a></li>
+                        <li class="py-2"><a href="/news/article-67154.htm" title="宠物粮食品牌排名前十有哪些品种（宠物粮厂家）">宠物粮食品牌排名前十有哪些品种（宠物粮厂家）</a></li>
+                        <li class="py-2"><a href="/news/article-80487.htm" title="动物医院社会实践报告总结500字左右（动物医院社会实践报告总结500字左右怎么写）">动物医院社会实践报告总结500字左右（动物医院社会实践报告总结500字左右怎么写）</a></li>
+                        <li class="py-2"><a href="/news/article-69731.htm" title="添组词是什么有哪些(添组词和读音是什么)">添组词是什么有哪些(添组词和读音是什么)</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-14-free-node-subscribe.htm" title="免费机场 | 3月14日18.8M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">免费机场 | 3月14日18.8M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-89787.htm" title="免费领养狗是真的吗（免费领养宠物是真的吗）">免费领养狗是真的吗（免费领养宠物是真的吗）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">24</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
