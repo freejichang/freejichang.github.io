@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-95747.htm" />
+    <meta charset="utf-8">
+    <title>快速入门kotlin-标准函数与静态方法</title>
+        <meta name="description" content="首先我们介绍标准函数 with、run、apply，如果你了解javascript，那理解kotlin的标准函数width、run、apply那简直不要太轻松。with、run、apply与javas" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-95747.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="快速入门kotlin-标准函数与静态方法" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/86304d802735273fb99a65fc0a250f03.webp" />
+        <meta property="og:release_date" content="2025-04-14T08:03:23" />
+    <meta property="og:updated_time" content="2025-04-14T08:03:23" />
+        <meta property="og:description" content="首先我们介绍标准函数 with、run、apply，如果你了解javascript，那理解kotlin的标准函数width、run、apply那简直不要太轻松。with、run、apply与javas" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="快速入门kotlin-标准函数与静态方法">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>快速入门kotlin-标准函数与静态方法</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                  				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> </h1> <p>首先我们介绍标准函数 with、run、apply，如果你了解javascript，那理解kotlin的标准函数width、run、apply那简直不要太轻松。with、run、apply与javascript中的with的意义基本一模一样，只是含有一些细微差别。</p> <h2> <a id="with_4" rel="nofollow"></a>with</h2> <p>with它接收两个参数，第一个参数可以是任意类型的对象，第二个参数是一个Lambda表达式。with函数会在Lambda表达式中提供第一个对象的上下文，可以直接使用对象的属性或方法，而不需要带上对象前缀。with函数会使用Lambda表达式中的最后一行代码作为返回值返回。</p> <pre><code class="prism language-kt"><span class="token keyword">val</span> result <span class="token operator">=</span> <span class="token function">with</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 	<span class="token comment">// 这里是obj的上下文环境</span> 	<span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 调用obj的doSomething方法，无需 obj.doSomething() 这种形式调用</span> <span class="token punctuation">}</span> </code></pre> <h2> <a id="run_15" rel="nofollow"></a>run</h2> <p>run函数的用法与使用场景和with函数非常类似，只是做了些许改动。run函数无法直接调用，他需要在某个对象的基础上去调用它；其次run函数值接收一个Lambda表达式作为参数，并且会在Lambda表达中提供调用对象的上下文，同样将Lambda表达式中的最后一行代码作为返回值。</p> <p>val result = obj.run {<!-- --><br /> // 这里是obj的上下文环境<br /> doSomething() // 调用obj的doSomething方法，无需 obj.doSomething() 这种形式调用<br /> }</p> <h2> <a id="apply_24" rel="nofollow"></a>apply</h2> <p>apply函数和run函数在用法上基本一模一样，唯一区别是apply函数不会将Lambda表达式中的最后一行作为参数返回，而是会返回对象本身.</p> <pre><code class="prism language-kt"><span class="token keyword">val</span> result <span class="token operator">=</span> obj<span class="token punctuation">.</span><span class="token function">apply</span> <span class="token punctuation">{<!-- --></span> <span class="token comment">// 这里是obj的上下文环境</span> 	<span class="token function">doSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 调用obj的doSomething方法，无需 obj.doSomething() 这种形式调用</span> <span class="token punctuation">}</span> <span class="token comment">// result == obj</span> </code></pre> </h1> <p>在java中定义一个静态方法如下：</p> <pre><code class="prism language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Util</span> <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 		<span class="token comment">// todo</span> 	<span class="token punctuation">}</span> <span class="token punctuation">}</span>  <span class="token comment">// 使用静态方法</span> <span class="token class-name">Util</span><span class="token punctuation">.</span><span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> </code></pre> <p>而Kotlin提供了几种方式去实现类似java中的静态方法</p> <ul> <li>单例类实现静态方法</li> </ul> <pre><code class="prism language-kt"><span class="token comment">// 声明一个单例类</span> <span class="token keyword">object</span> Util <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">fun</span> <span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 		<span class="token comment">// todo</span> 	<span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token comment">// 使用</span> Util<span class="token punctuation">.</span><span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> </code></pre> <ul> <li>伴生类实现静态方法</li> </ul> <p>单例类的写法会让类中的所有方法全部变成了类似静态方法的调用形式，如果我们只是希望类中的某些方法变成静态方法的调用形式怎么办呢？kotlin给我们提供了伴生类 companion object。</p> <pre><code class="prism language-kt"><span class="token keyword">class</span> Utl <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">companion</span> obj <span class="token punctuation">{<!-- --></span> 		<span class="token keyword">fun</span> <span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 		<span class="token comment">// todo</span> 		<span class="token punctuation">}</span> 	<span class="token punctuation">}</span> <span class="token punctuation">}</span>  <span class="token comment">// 使用</span> Util<span class="token punctuation">.</span><span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> </code></pre> <p>这个关键字实际会在Util类的内部创建一个伴生类，Kotlin会保证一个类中只会存在一个伴生类对象,调用Util.doSome()实际上是调用Util类中的伴生类对象的doSome方法。</p> <ul> <li>注解实现静态方法</li> </ul> <p>如果我们确确实实需要定义真正的静态方法，我们可以给单例类或companion object伴生类中的方法加上 @JvmStatic注解，那么kotlin编译器就会将这些方法编译成真正的静态方法。注意这个注释一般加在单例类或伴生类的方法上，如果加在普通方法上，会直接提示语法错误。</p> <pre><code class="prism language-kt"><span class="token keyword">class</span> Utl <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">companion</span> obj <span class="token punctuation">{<!-- --></span> 		<span class="token annotation builtin">@JvmStatic</span> 		<span class="token keyword">fun</span> <span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 		<span class="token comment">// todo</span> 		<span class="token punctuation">}</span> 	<span class="token punctuation">}</span> <span class="token punctuation">}</span>  <span class="token comment">// 使用</span> Util<span class="token punctuation">.</span><span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> </code></pre> <ul> <li>顶层方法实现静态方法</li> </ul> <p>顶层方法指的是哪些没有定义在任何类中的方法，比如我们编写的main()方法。kotlin编译器会将所有的顶层方法全部编译成静态方法。所有的顶层方法在任何位置可以直接被调用，不用管包名路径，也不用创建实例。但如果这个方法在Java代码中调用，需要加上该方法所在的文件名。</p> <pre><code class="prism language-kt"><span class="token comment">// 如我们在Tool.kt 文件中创建了一个顶层方法</span> <span class="token comment">// Tool.kt</span> <span class="token keyword">fun</span> <span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 	<span class="token comment">// todo</span> <span class="token punctuation">}</span>  <span class="token comment">// 在java代码中使用</span> <span class="token keyword">public</span> <span class="token keyword">class</span> JavaTest <span class="token punctuation">{<!-- --></span> 	<span class="token keyword">public</span> void <span class="token function">invokeStaticFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> 		<span class="token comment">// 文件名+方法形式调用顶层方法</span> 		Tool<span class="token punctuation">.</span><span class="token function">doSome</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 	<span class="token punctuation">}</span> <span class="token punctuation">}</span> </code></pre> </p></div> 			                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-95010.htm">想开一家宠物店需要投资多少费用（开一家宠物店需要投资多少钱）</a></p>
+                                        <p>下一个：<a href="/news/article-95748.htm">大人被猫抓破皮怎么办（大人被猫抓了怎么办）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-3-22-node-share-links.htm" title="免费机场 | 3月22日20.6M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址">免费机场 | 3月22日20.6M/S|免费VPN/SSR/V2ray/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-1-free-v2ray-subscribe.htm" title="免费机场 | 4月1日19.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址">免费机场 | 4月1日19.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-76394.htm" title="数据库上云实践：使用Ora2pg进行数据库迁移">数据库上云实践：使用Ora2pg进行数据库迁移</a></li>
+                        <li class="py-2"><a href="/news/article-79123.htm" title="企业微信 嵌H5页面 用户权限获取匹配">企业微信 嵌H5页面 用户权限获取匹配</a></li>
+                        <li class="py-2"><a href="/news/article-82594.htm" title="宠物免费领养网站（宠物免费领养网站）">宠物免费领养网站（宠物免费领养网站）</a></li>
+                        <li class="py-2"><a href="/news/article-75042.htm" title="基于JDK的动态代理原理分析">基于JDK的动态代理原理分析</a></li>
+                        <li class="py-2"><a href="/news/article-79124.htm" title="北京中农大动物医院有限公司招聘 北京中农大动物医院有限公司招聘信息">北京中农大动物医院有限公司招聘 北京中农大动物医院有限公司招聘信息</a></li>
+                        <li class="py-2"><a href="/news/article-76395.htm" title="数组模拟队列进阶版本——环形队列（真正意义上的排队）">数组模拟队列进阶版本——环形队列（真正意义上的排队）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-9-free-high-speed-nodes.htm" title="免费机场 | 4月9日19.8M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址">免费机场 | 4月9日19.8M/S|免费VPN/SSR/Shadowrocket/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-75717.htm" title="动物防疫疫苗中标公告最新（动物防疫疫苗中标公告最新版）">动物防疫疫苗中标公告最新（动物防疫疫苗中标公告最新版）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">42</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
