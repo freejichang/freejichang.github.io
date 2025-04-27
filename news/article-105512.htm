@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-105512.htm" />
+    <meta charset="utf-8">
+    <title>DjangoRestFramework框架三种分页功能的实现 &#8211; 在DjangoStarter项目模板中封装</title>
+        <meta name="description" content="前言 继续Django后端开发系列文章。刚好遇到一个分页的需求，就记录一下。 Django作为一个“全家桶”型的框架，本身啥都有，分页组件也是有的，但默认的分页组件没有对API开发做优化，所以Djan" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-105512.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="DjangoRestFramework框架三种分页功能的实现 &#8211; 在DjangoStarter项目模板中封装" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/d6a74753a4a335071792be4134f97d41.webp" />
+        <meta property="og:release_date" content="2025-04-27T08:29:16" />
+    <meta property="og:updated_time" content="2025-04-27T08:29:16" />
+        <meta property="og:description" content="前言 继续Django后端开发系列文章。刚好遇到一个分页的需求，就记录一下。 Django作为一个“全家桶”型的框架，本身啥都有，分页组件也是有的，但默认的分页组件没有对API开发做优化，所以Djan" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="DjangoRestFramework框架三种分页功能的实现 &#8211; 在DjangoStarter项目模板中封装">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>DjangoRestFramework框架三种分页功能的实现 &#8211; 在DjangoStarter项目模板中封装</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<h2 id="前言">前言</h2> <p>继续Django后端开发系列文章。刚好遇到一个分页的需求，就记录一下。</p> <p>Django作为一个“全家桶”型的框架，本身啥都有，分页组件也是有的，但默认的分页组件没有对API开发做优化，所以DjangoRestFramework这个专门写API的框架又把Django的分页组件包装了一层，集成在<code>viewsets</code>里的时候会更方便。</p> <p>不过我们不可能一直用<code>viewsets</code>，有一部分API还是要用自由度更高的<code>ApiView</code>的，但<code>ApiView</code>里又没办法直接使用默认的分页组件，这时我们就需要封装一下。</p> <p>并且DjangoRestFramework默认的分页信息也不够全，比如没有总页数，这点我们也可以在封装的时候魔改一下。</p> <h2 id="drf中的分页方式">DRF中的分页方式</h2> <p>DRF中为我们封装了三种分页方式，分别是：</p> <ul> <li><code>PageNumberPagination</code>：顾名思义，不解释</li> <li><code>LimitOffsetPagination</code>：Offset分页</li> <li><code>CursorPagination</code>：加密分页</li> </ul> <p>本文打算只介绍最常用的第一种，后面两种同时也会做封装，但篇幅关系就不介绍了，有兴趣的同学可以尝试使用一下。</p> <h2 id="开始代码">开始代码</h2> <p>首先还是在我们的「DjangoStarter」项目中，在<code>utils</code>目录下新建一个名为<code>paginator</code>的Python Package。</p> <p>因为代码不多，我们直接写在<code>utils/paginator/__init__.py</code>文件下就好。</p> <pre><code class="language-python">from collections import OrderedDict  from django.core.paginator import Paginator from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination from rest_framework.response import Response   class NumberPaginator(PageNumberPagination):     """页码分页"""     def __init__(             self,             page_size,             page_size_query_param='page_size',             page_query_param='page',             max_page_size=None     ):         """         初始化分页          :param page_size: 每页显示多少条         :param page_size_query_param: URL中每页显示条数的参数         :param page_query_param: URL中页码的参数         :param max_page_size: 最大页码数限制         """         self.page_size = page_size         self.page_size_query_param = page_size_query_param         self.page_query_param = page_query_param         self.max_page_size = max_page_size      def get_paginated_response(self, data):         paginator: Paginator = self.page.paginator          return Response(OrderedDict([             ('total_item_count', paginator.count),             ('page_count', paginator.num_pages),             ('page_number', self.page.number),             ('page_size', self.page_size),             ('next', self.get_next_link()),             ('previous', self.get_previous_link()),             ('results', data)         ]))   class LimitOffsetPaginator(LimitOffsetPagination):     """Offset分页"""     default_limit = 1     limit_query_param = 'limit'     offset_query_param = 'offset'     max_limit = 999   class CursorPaginator(CursorPagination):     """加密分页"""     cursor_query_param = 'cursor'     page_size = 1     ordering = '-id'  # 重写要排序的字段</code></pre> <p>针对前面说的“DjangoRestFramework默认的分页信息也不够全”问题，我重写了<code>get_paginated_response</code>方法，在返回值中加入这几个参数</p> <ul> <li><code>page_count</code>：总页数</li> <li><code>page_number</code>：当前页码</li> <li><code>page_size</code>：每页数量</li> </ul> <p>然后另外两个参数也改了名字，更直观，更符合我们平时的开发习惯。</p> <p><code>...</code></p> <p>这样就完成了封装，我们接下来在代码里测试一下</p> <h2 id="测试接口">测试接口</h2> <p>来写个测试接口看看效果</p> <pre><code class="language-python">from utils.paginator import NumberPaginator  @swagger_auto_schema(     method='get', operation_summary='测试分页功能',     manual_parameters=[         openapi.Parameter('page', openapi.IN_QUERY, type=openapi.TYPE_NUMBER),         openapi.Parameter('page_size', openapi.IN_QUERY, type=openapi.TYPE_NUMBER),     ]) @api_view() def test_page(request):     # 测试数据     data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]     paginator = NumberPaginator(request.query_params.get('page_size', 10))     return paginator.get_paginated_response({         'data': paginator.paginate_queryset(queryset=data, request=request)     })</code></pre> <p>配置一下路由</p> <pre><code class="language-python">urlpatterns = [     path('test_page', views.test_page), ]</code></pre> <h2 id="测试效果">测试效果</h2> <p>写完的接口接受两个参数，<code>page</code>和<code>page_size</code>，我在<code>@swagger_auto_schema</code>装饰器里声明了这两个参数，方便我们在Swagger文档中做测试。</p> <p>我们设定<code>page_size=5</code>，拿到的JSON数据是这样的：</p> <pre><code class="language-json">{   "message": "请求成功",   "code": 200,   "data": {     "total_item_count": 10,     "page_count": 2,     "page_number": 1,     "page_size": "5",     "next": "http://127.0.0.1:8005/core/test_page?page=2&amp;page_size=5",     "previous": null,     "results": {       "data": [         1,         2,         3,         4,         5       ]     }   } }</code></pre> <p>效果不错，很清晰。</p> <p>收工。</p> <h2 id="参考资料">参考资料</h2> <ul> <li>https://www.cnblogs.com/liwenzhou/p/9398959.html</li> </ul> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-104812.htm">宠颐生宠物医院 宠颐生宠物医院电话</a></p>
+                                        <p>下一个：<a href="/news/article-105515.htm">三国杀标准版武将台词（三国杀移动版武将台词）</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-72352.htm" title="怎么领养狐狸（如何领养狐狸）">怎么领养狐狸（如何领养狐狸）</a></li>
+                        <li class="py-2"><a href="/news/article-74362.htm" title="广州有宠物救助中心吗（广州宠物救助中心地址）">广州有宠物救助中心吗（广州宠物救助中心地址）</a></li>
+                        <li class="py-2"><a href="/news/article-67154.htm" title="宠物粮食品牌排名前十有哪些品种（宠物粮厂家）">宠物粮食品牌排名前十有哪些品种（宠物粮厂家）</a></li>
+                        <li class="py-2"><a href="/news/article-89786.htm" title="windows C/C++ 实现ini文件读写">windows C/C++ 实现ini文件读写</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-27-node-share-links.htm" title="免费机场 | 3月27日21.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址">免费机场 | 3月27日21.5M/S|免费VPN/V2ray/Shadowrocket/SSR/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-2-free-high-speed-nodes.htm" title="免费机场 | 3月2日18.8M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址">免费机场 | 3月2日18.8M/S|免费VPN/Clash/Shadowrocket/SSR/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-3-8-free-v2ray-subscribe.htm" title="免费机场 | 3月8日20.6M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址">免费机场 | 3月8日20.6M/S|免费VPN/V2ray/Clash/SSR/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-2-free-high-speed-nodes.htm" title="免费机场 | 4月2日18.3M/S|免费VPN/SSR/Clash/V2ray/Shadowrocket免费节点链接地址">免费机场 | 4月2日18.3M/S|免费VPN/SSR/Clash/V2ray/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-65898.htm" title="宠物粮厂利润怎么样呀（宠物粮厂利润怎么样呀）">宠物粮厂利润怎么样呀（宠物粮厂利润怎么样呀）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-17-free-v2ray-subscribe.htm" title="免费机场 | 4月17日18.4M/S|免费VPN/V2ray/Shadowrocket/Clash/SSR免费节点链接地址">免费机场 | 4月17日18.4M/S|免费VPN/V2ray/Shadowrocket/Clash/SSR免费节点链接地址</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">79</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">90</span> <a href="/date/2025-03/" title="2025-03 归档">2025-03</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
