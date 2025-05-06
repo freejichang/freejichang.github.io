@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-111503.htm" />
+    <meta charset="utf-8">
+    <title>Node 中的模块化 + module对象 + exports对象</title>
+        <meta name="description" content="◆ 能够说出模块化的好处 ◆ 能够知道 CommonJS 规定了哪些内容 ◆ 能够说出 Node.js 中模块的三大分类各自是什么 ◆ 能够了解模块的加载机制  文章目录  学习目标 一、模块化 二、" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-111503.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="Node 中的模块化 + module对象 + exports对象" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/32443e4bd3b20a198dc304fef7b6fd24.webp" />
+        <meta property="og:release_date" content="2025-05-04T09:28:37" />
+    <meta property="og:updated_time" content="2025-05-04T09:28:37" />
+        <meta property="og:description" content="◆ 能够说出模块化的好处 ◆ 能够知道 CommonJS 规定了哪些内容 ◆ 能够说出 Node.js 中模块的三大分类各自是什么 ◆ 能够了解模块的加载机制  文章目录  学习目标 一、模块化 二、" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Node 中的模块化 + module对象 + exports对象">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>Node 中的模块化 + module对象 + exports对象</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> </h1> <p>◆ 能够说出模块化的好处</p> <p>◆ 能够知道 CommonJS 规定了哪些内容</p> <p>◆ 能够说出 Node.js 中模块的三大分类各自是什么</p> <p>◆ 能够了解模块的加载机制</p> <div class="toc"> <h3>文章目录</h3> <ul> <li>学习目标</li> <li>一、模块化</li> <li>二、Node 中的模块化</li> <li> <ul> <li>1. 使用 require 方法加载模块</li> <li>2. module 对象</li> <li> <ul> <li>module.exports 对象</li> </ul> </li> <li>3. exports 对象</li> <li>4. CommonJS 模块化规范</li> </ul> </li> </ul> </div> </h1> <ol> <li>模块化是指解决一个复杂问题时，自顶向下逐层<strong>把系统划分成若干模块的过程</strong>。对于整个系统来说，<strong>模块是可组合、分解和更换的单元</strong></li> <li>编程领域中的模块化，就是<strong>遵守固定的规则</strong>，把一个<strong>大文件</strong>拆成<strong>独立并互相依赖的多个小模块</strong></li> </ol> <p></p> </h1> <p><code>Node.js</code> 中根据模块来源的不同，将模块分为了<strong>3 大类</strong>，分别是：</p> <ol> <li> <p><strong>内置模块</strong>（内置模块是由<code>Node.js</code> 官方提供的，例如<code>fs</code>、<code>path</code>、<code>http</code> 等）</p> </li> <li> <p><strong>自定义模块</strong>（用户创建的每个<code>.js</code> 文件，都是自定 义模块）</p> </li> <li> <p><strong>第三方模块</strong>（由第三方开发出来的模块，并非官方提供的内置模块，也不是用户创建的自定义模块，<strong>使用前需要先下载</strong>）</p> </li> </ol> <h2>1. 使用 require 方法加载模块</h2> <p>使用强大的<code>require()</code> 方法，可以加载需要的<strong>内置模块</strong>、<strong>用户自定义模块</strong>、<strong>第三方模块</strong>进行使用</p> <pre><code class="prism language-javascript"><span class="token comment">// 1. 加载内置的 fs 模块</span><span class="token keyword">const</span> fs<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token comment">// 2. 加载用户的自定义模块</span><span class="token keyword">const</span> custom<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./custom.js'</span><span class="token punctuation">)</span><span class="token comment">// 3. 加载第三方模块，(使用第三方模块，下面会进行讲解)</span><span class="token keyword">const</span> moment<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'moment'</span><span class="token punctuation">)</span></code></pre> <p><strong>注意</strong></p> <ol> <li>使用 require() 方法加载其他模块时，会执行被加载模块中的代码</li> <li>在使用<code>require</code> 加载用户自定义模块期间，可以省略<code>.js</code> 后缀名</li> </ol> <p><strong>模块作用域的好处：</strong> 和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，外部文件是访问不到的，这种模块级别的访问限制，叫做模块作用域</p> <p></p> <h2>2. module 对象</h2> <p>在每个<code>.js</code> 自定义模块中都有一个<code>module</code> 对象，它里面存储了和当前模块有关的信息</p> <h3>module.exports 对象</h3> <ol> <li> <p>在自定义模块中，可以使用<code>module.exports</code> 对象，将模块内的成员共享出去，供外界使用</p> </li> <li> <p>外界用<code>require()</code> 方法导入自定义模块时，得到的就是<code>module.exports</code> 所指向的对象</p> </li> </ol> <p><strong>module.exports 向外共享成员</strong></p> <pre><code class="prism language-javascript"><span class="token comment">// 加载模块.js</span><span class="token keyword">const</span> mo<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./被加载的模块.js'</span><span class="token punctuation">)</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>mo<span class="token punctuation">)</span></code></pre> <pre><code class="prism language-javascript"><span class="token comment">// 被加载的模块.js</span><span class="token comment">// 向 module.exports 对象上挂载 username 属性</span> module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>username<span class="token operator">=</span><span class="token string">'zs'</span><span class="token comment">// 向 module.exports 对象上挂载 sayHello 方法</span> module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span><span class="token function-variable function">sayHello</span><span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{<!-- --></span>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Hellp'</span><span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre> <p><strong>共享成员时的注意点</strong><br /> 使用<code>require()</code> 方法导入模块时，导入的结果，永远以<code>module.exports</code> 指向的对象为准</p> <p></p> <h2>3. exports 对象</h2> <p>默认情况下，<code>exports</code> 和<code>module.exports</code> 指向同一个对象，最终共享的结果，还是以<code>module.exports</code> 指向的对象为准</p> <p><strong>exports 和 module.exports 的使用误区</strong></p> <ol> <li>时刻谨记，<code>require()</code> 模块时，得到的永远是<code>module.exports</code> 指向的对象</li> <li><strong>注意：为了防止混乱，建议大家不要在同一个模块中同时使用<code>exports</code> 和<code>module.exports</code></strong></li> </ol> <p></p> <h2>4. CommonJS 模块化规范</h2> <ol> <li> <p>Node.js<code>遵循了</code>CommonJS<code>模块化规范，</code>CommonJS `规定了<strong>模块的特性和各模块之间如何相互依赖</strong></p> </li> <li> <p><code>CommonJS</code> 规定：</p> <ul> <li>每个模块内部，<code>module</code> 变量代表当前模块</li> <li><code>module</code> 变量是一个对象，它的<code>exports</code> 属性（即<code>module.exports</code>）是对外的接口</li> <li>加载某个模块，其实是加载该模块的<code>module.exports</code> 属性，<code>require()</code> 方法用于加载模块</li> </ul> </li> </ol> </div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-110668.htm">IDEA Debug过程中使用Drop Frame或Reset Frame实现操作回退</a></p>
+                                        <p>下一个：<a href="/news/article-111504.htm">动物医院纪录片 动物医院纪录片***</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/free-nodes/2025-4-15-node-share-links.htm" title="免费机场 | 4月15日18.3M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址">免费机场 | 4月15日18.3M/S|免费VPN/SSR/Shadowrocket/Clash/V2ray免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-88331.htm" title="58同城茶杯犬狗领养（58同城宠物狗狗出售茶杯犬）">58同城茶杯犬狗领养（58同城宠物狗狗出售茶杯犬）</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-6-free-subscribe-node.htm" title="免费机场 | 4月6日21.7M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址">免费机场 | 4月6日21.7M/S|免费VPN/V2ray/SSR/Clash/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-29-free-subscribe-node.htm" title="免费机场 | 4月29日20.9M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址">免费机场 | 4月29日20.9M/S|免费VPN/Clash/Shadowrocket/V2ray/SSR免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-103918.htm" title="宠爱国际动物医院官网招聘 宠爱国际动物医院工作怎么样">宠爱国际动物医院官网招聘 宠爱国际动物医院工作怎么样</a></li>
+                        <li class="py-2"><a href="/news/article-101572.htm" title="猫咪驱虫的正确方法 猫咪驱虫的正确方法时间">猫咪驱虫的正确方法 猫咪驱虫的正确方法时间</a></li>
+                        <li class="py-2"><a href="/news/article-92012.htm" title="动物防疫中心站（动物防疫中心站是干嘛）">动物防疫中心站（动物防疫中心站是干嘛）</a></li>
+                        <li class="py-2"><a href="/news/article-86169.htm" title="妙三多猫疫苗好吗（妙三多猫疫苗都预防哪些疾病）">妙三多猫疫苗好吗（妙三多猫疫苗都预防哪些疾病）</a></li>
+                        <li class="py-2"><a href="/news/article-98627.htm" title="记将一个大型客户端应用项目迁移到 dotnet 6 的经验和决策_在线工具">记将一个大型客户端应用项目迁移到 dotnet 6 的经验和决策_在线工具</a></li>
+                        <li class="py-2"><a href="/news/article-108962.htm" title="宠物粮进货渠道在哪里啊（宠物粮食进货渠道）">宠物粮进货渠道在哪里啊（宠物粮食进货渠道）</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">14</span> <a href="/date/2025-05/" title="2025-05 归档">2025-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">88</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>

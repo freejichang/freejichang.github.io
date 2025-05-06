@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xml:lang="zh-CN" lang="zh-CN">
+
+<head>
+        <link rel="canonical" href="https://freejichang.github.io/news/article-110667.htm" />
+    <meta charset="utf-8">
+    <title>Flutter之Decoration（编写圆角竖线）</title>
+        <meta name="description" content="自己根据资料编写圆角竖线，具体实现代码如下： Container(           margin: EdgeInsets.fromLTRB(10, 10, 5, 10),           wi" />
+        <link rel="icon" href="/assets/website/img/winxraygithub/favicon.ico" type="image/x-icon"/>
+
+    <meta name="author" content="免费机场 订阅链接中文网">
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://freejichang.github.io/news/article-110667.htm" />
+    <meta property="og:site_name" content="免费机场 订阅链接中文网" />
+    <meta property="og:title" content="Flutter之Decoration（编写圆角竖线）" />
+    <meta property="og:image" content="https://freejichang.github.io/uploads/20240803/732c0b3ed65f6f22e4c421484a305656.webp" />
+        <meta property="og:release_date" content="2025-05-03T10:29:18" />
+    <meta property="og:updated_time" content="2025-05-03T10:29:18" />
+        <meta property="og:description" content="自己根据资料编写圆角竖线，具体实现代码如下： Container(           margin: EdgeInsets.fromLTRB(10, 10, 5, 10),           wi" />
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="applicable-device" content="pc,mobile" />
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta name="robots" content="max-image-preview:large" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Flutter之Decoration（编写圆角竖线）">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="dns-prefetch" href="https:/www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googleadservices.com">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+    <link rel="dns-prefetch" href="https://cm.g.doubleclick.net">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/assets/website/fonts/winxraygithub/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/aos.css">
+    <link rel="stylesheet" href="/assets/website/css/winxraygithub/style.css">
+    <link rel="stylesheet" href="/assets/website/css/G.css" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JC1DVVVL2Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JC1DVVVL2Y');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3332997411212854"
+     crossorigin="anonymous"></script>
+</head>
+
+<body data-page="detail">
+    <div id="overlayer"></div>
+    <div class="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="site-wrap" id="home-section">
+                <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
+            </div>
+            <div class="site-mobile-menu-body"></div>
+        </div>
+        <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-6 col-md-3 col-xl-4  d-block">
+                        <a href="/" class="text-black h2 mb-0">
+                                                免费机场                        </a>
+                    </div>
+                    <div class="col-12 col-md-9 col-xl-8 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block ml-0 pl-0">
+                                                                <li><a href="/" class="nav-link">首页</a></li>
+                                                                <li><a href="/free-nodes/" class="nav-link">免费节点</a></li>
+                                                                <li><a href="/paid-subscribe/" class="nav-link">推荐机场</a></li>
+                                                                <li><a href="/client.htm" class="nav-link">客户端</a></li>
+                                                                <li><a href="/news/" class="nav-link">新闻资讯</a></li>
+                                                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-6 col-md-9 d-inline-block d-lg-none ml-md-0"><a href="#" class="site-menu-toggle js-menu-toggle text-black float-right"><span class="icon-menu h3"></span></a></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="site-blocks-cover list" style="overflow: hidden;">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-12" style="position: relative;" data-aos="fade-up" data-aos-delay="200">
+                        <img src="/assets/website/img/winxraygithub/undraw_investing_7u74.svg" alt="Image" class="img-fluid img-absolute">
+                        <div class="row" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-6 mr-auto">
+                                <h1>Flutter之Decoration（编写圆角竖线）</h1>
+                                <p class="mb-5">
+                                    <a href="/">首页</a> / <a href="/news/">新闻资讯</a> / <span>正文</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="feature-big my-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                                        <input type="hidden" id="share-website-info" data-name="Clash Meta免费节点订阅站" data-url="https://clash-meta.github.io">
+                <div class="xcblog-blog-detail xcblog-blog-detail-defined">
+                      				  				  				<div id="content_views" class="markdown_views prism-atom-one-dark"> <p>自己根据资料编写圆角竖线，具体实现代码如下：</p> <pre><code>Container(           margin: EdgeInsets.fromLTRB(10, 10, 5, 10),           width: 3,           height: 11,           decoration: ShapeDecoration(               color: Colors.lightBlue,               shape: RoundedRectangleBorder(                   borderRadius: BorderRadius.circular(5))),         ) </code></pre> <p>Flutter之Decoration（边框、圆角、阴影、形状、渐变、背景图像等）<br /> 1 继续关系：</p> <p>BoxDecoration:实现边框、圆角、阴影、形状、渐变、背景图像</p> <p>ShapeDecoration:实现四个边分别指定颜色和宽度、底部线、矩形边色、圆形边色、体育场（竖向椭圆）、 角形（八边角）边色</p> <p>FlutterLogoDecoration:实现Flutter图片</p> <p>UnderlineTabindicator:下划线</p> <p>2 介绍<br /> 一个背景装饰对象，相当于Android中的shape.xml，定制各种各样的背景（边框、圆角、阴影、形状、渐变、背景图像）。</p> <p>3 BoxDecoration例子：<br /> 构造方法：</p> <p>const BoxDecoration({<!-- --><br /> this.color, // 底色<br /> this.image, // 图片<br /> this.border, 边色<br /> this.borderRadius, // 圆角度<br /> this.boxShadow, // 阴影<br /> this.gradient, // 渐变<br /> this.backgroundBlendMode, // 混合Mode<br /> this.shape = BoxShape.rectangle, // 形状<br /> })<br /> 3.1 边框+圆角:<br /> decoration: new BoxDecoration(<br /> border: new Border.all(color: Color(0xFFFF0000), width: 0.5), // 边色与边宽度<br /> color: Color(0xFF9E9E9E), // 底色<br /> // borderRadius: new BorderRadius.circular((20.0)), // 圆角度<br /> borderRadius: new BorderRadius.vertical(top: Radius.elliptical(20, 50)), // 也可控件一边圆角大小<br /> ),<br /> 3.2 阴影：<br /> decoration: new BoxDecoration(<br /> border: new Border.all(color: Color(0xFFFF0000), width: 0.5), // 边色与边宽度<br /> // 生成俩层阴影，一层绿，一层黄， 阴影位置由offset决定,阴影模糊层度由blurRadius大小决定（大就更透明更扩散），阴影模糊大小由spreadRadius决定<br /> boxShadow: [BoxShadow(color: Color(0x99FFFF00), offset: Offset(5.0, 5.0), blurRadius: 10.0, spreadRadius: 2.0), BoxShadow(color: Color(0x9900FF00), offset: Offset(1.0, 1.0)), BoxShadow(color: Color(0xFF0000FF))],<br /> ),<br /> 3.3 形状（圆形与矩形）：<br /> decoration: new BoxDecoration(<br /> border: new Border.all(color: Color(0xFFFFFF00), width: 0.5), // 边色与边宽度<br /> color: Color(0xFF9E9E9E), // 底色<br /> // shape: BoxShape.circle, // 圆形，使用圆形时不可以使用borderRadius<br /> shape: BoxShape.rectangle, // 默认值也是矩形<br /> borderRadius: new BorderRadius.circular((20.0)), // 圆角度<br /> ),<br /> 3.4 渐变（环形、扫描式、线性）：<br /> decoration: new BoxDecoration(<br /> border: new Border.all(color: Color(0xFFFFFF00), width: 0.5), // 边色与边宽度<br /> // 环形渲染<br /> gradient: RadialGradient(colors: [Color(0xFFFFFF00), Color(0xFF00FF00), Color(0xFF00FFFF)],radius: 1, tileMode: TileMode.mirror)<br /> //扫描式渐变<br /> // gradient: SweepGradient(colors: [Color(0xFFFFFF00), Color(0xFF00FF00), Color(0xFF00FFFF)], startAngle: 0.0, endAngle: 1*3.14)<br /> // 线性渐变<br /> // gradient: LinearGradient(colors: [Color(0xFFFFFF00), Color(0xFF00FF00), Color(0xFF00FFFF)], begin: FractionalOffset(1, 0), end: FractionalOffset(0, 1))<br /> ),<br /> 3.4 背景图像：<br /> decoration: new BoxDecoration(<br /> border: new Border.all(color: Color(0xFFFFFF00), width: 0.5), // 边色与边宽度<br /> image: new DecorationImage(<br /> image: new NetworkImage(‘https://avatar.csdn.net/8/9/A/3_chenlove1.jpg’), // 网络图片<br /> // image: new AssetImage(‘graphics/background.png’), 本地图片<br /> fit: BoxFit.fill // 填满<br /> // centerSlice: new Rect.fromLTRB(270.0, 180.0, 1360.0, 730.0),// 固定大小<br /> ),<br /> ),<br /> 4 ShapeDecoration例子：<br /> 构造方法：</p> <p>const ShapeDecoration({<!-- --><br /> this.color,<br /> this.image,<br /> this.gradient,<br /> this.shadows,<br /> @required this.shape,<br /> })<br /> 除了shape，其他与BoxDecoration一致，shape研究：</p> <p>decoration: new ShapeDecoration(<br /> color: Color(0xFFFF00FF), // 底色<br /> // 统一四边颜色和宽度<br /> shape: Border.all(color: Color(0xFF00FFFF),style: BorderStyle.solid,width: 2)<br /> // 四个边分别指定颜色和宽度， 当只给bottom时与UnderlineInputBorder一致效果<br /> // shape: Border(top: b, bottom: b, right: b, left: b)<br /> // 底部线<br /> // shape: UnderlineInputBorder( borderSide:BorderSide(color: Color(0xFFFFFFFF), style: BorderStyle.solid, width: 2))<br /> // 矩形边色<br /> // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFFFFFFF), style: BorderStyle.solid, width: 2))<br /> // 圆形边色<br /> // shape: CircleBorder(side: BorderSide(color: Color(0xFFFFFF00), style: BorderStyle.solid, width: 2))<br /> // 体育场（竖向椭圆）<br /> // shape: StadiumBorder(side: BorderSide(width: 2, style: BorderStyle.solid, color: Color(0xFF00FFFF))<br /> // 角形（八边角）边色<br /> // shape: BeveledRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)), side: BorderSide(color: Color(0xFFFFFFFF), style: BorderStyle.solid, width: 2))<br /> ),<br /> 5 FlutterLogoDecoration例子：<br /> 构造方法：</p> <p>const FlutterLogoDecoration({<!-- --><br /> this.lightColor = const Color(0xFF42A5F5), // Colors.blue[400]<br /> this.darkColor = const Color(0xFF0D47A1), // Colors.blue[900]<br /> this.textColor = const Color(0xFF616161),<br /> this.style = FlutterLogoStyle.markOnly,<br /> this.margin = EdgeInsets.zero,<br /> })<br /> 这个就不解析了，Flutter的logo，开发没啥用！</p> <p>6 UnderlineTabindicator例子：<br /> 构造方法：</p> <p>const UnderlineTabIndicator({<!-- --><br /> this.borderSide = const BorderSide(width: 2.0, color: Colors.white),<br /> this.insets = EdgeInsets.zero,<br /> })<br /> 这个比较简单就是加下划线，可以设置Insets值（控制下划高底，左右边距）</p> <p>decoration: new UnderlineTabIndicator(<br /> borderSide: BorderSide(width: 2.0, color: Colors.white),<br /> insets: EdgeInsets.fromLTRB(0,0,0,10)</p> <p>原文：https://blog.csdn.net/chenlove1/article/details/83627831</p> </p></div> 			                </div>
+                <div class="clearfix"></div>
+                <div class="col-md-12 mt-5">
+                                        <p>上一个：<a href="/news/article-109797.htm">新疆和田宠物店在哪里开（新疆和田宠物店在哪里开门）</a></p>
+                                        <p>下一个：<a href="/news/article-110668.htm">IDEA Debug过程中使用Drop Frame或Reset Frame实现操作回退</a></p>
+                                    </div>
+                                    </div>
+                    <div class="col-md-3">
+                        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">热门文章</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2"><a href="/news/article-110667.htm" title="Flutter之Decoration（编写圆角竖线）">Flutter之Decoration（编写圆角竖线）</a></li>
+                        <li class="py-2"><a href="/news/article-89786.htm" title="windows C/C++ 实现ini文件读写">windows C/C++ 实现ini文件读写</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-8-free-subscribe-node.htm" title="免费机场 | 4月8日19.5M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址">免费机场 | 4月8日19.5M/S|免费VPN/Shadowrocket/SSR/V2ray/Clash免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-92725.htm" title="Docker最常用的镜像命令和容器命令">Docker最常用的镜像命令和容器命令</a></li>
+                        <li class="py-2"><a href="/news/article-90532.htm" title="动物疫苗销售需要什么手续呢多少钱一针（动物疫苗经销商）">动物疫苗销售需要什么手续呢多少钱一针（动物疫苗经销商）</a></li>
+                        <li class="py-2"><a href="/news/article-111504.htm" title="动物医院纪录片 动物医院纪录片***">动物医院纪录片 动物医院纪录片***</a></li>
+                        <li class="py-2"><a href="/news/article-90531.htm" title="多线程与高并发原理篇：3_java内存模型">多线程与高并发原理篇：3_java内存模型</a></li>
+                        <li class="py-2"><a href="/free-nodes/2025-4-24-free-v2ray-subscribe.htm" title="免费机场 | 4月24日21.2M/S|免费VPN/Clash/SSR/V2ray/Shadowrocket免费节点链接地址">免费机场 | 4月24日21.2M/S|免费VPN/Clash/SSR/V2ray/Shadowrocket免费节点链接地址</a></li>
+                        <li class="py-2"><a href="/news/article-101573.htm" title="动物疫苗使用方法有哪些（动物疫苗的使用方法）">动物疫苗使用方法有哪些（动物疫苗的使用方法）</a></li>
+                        <li class="py-2"><a href="/news/article-92724.htm" title="关于CSS样式的优先级问题">关于CSS样式的优先级问题</a></li>
+                    </ul>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">归纳</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">14</span> <a href="/date/2025-05/" title="2025-05 归档">2025-05</a></h4>
+            </li>
+                        <li class="py-2">
+                <h4><span class="badge" style="float: right;">88</span> <a href="/date/2025-04/" title="2025-04 归档">2025-04</a></h4>
+            </li>
+                    </ul>
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+                <div class="footer py-5 text-center">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <p class="mb-0">
+                            <a href="#" class="p-3"><span class="icon-facebook"></span></a>
+                            <a href="#" class="p-3"><span class="icon-twitter"></span></a>
+                            <a href="#" class="p-3"><span class="icon-instagram"></span></a>
+                            <a href="#" class="p-3"><span class="icon-linkedin"></span></a>
+                            <a href="#" class="p-3"><span class="icon-pinterest"></span></a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                                            <p>
+                                                <a href="/">首页</a> |
+                                                <a href="/free-nodes/">免费节点</a> |
+                                                <a href="/paid-subscribe/">推荐机场</a> |
+                                                <a href="/client.htm">客户端</a> |
+                                                <a href="/news/">新闻资讯</a> |
+                                                <a href="/about-us.htm">关于我们</a> |
+                        <a href="/disclaimer.htm">免责申明</a> |
+                        <a href="/privacy.htm">隐私申明</a> |
+                        <a href="/sitemap.xml">网站地图</a>
+                    </p>
+                        <p class="mb-0">
+                        免费机场 订阅链接中文网 版权所有 Powered by WordPress
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-3.3.1.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery-ui.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/popper.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/owl.carousel.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.countdown.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/bootstrap-datepicker.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.easing.1.3.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/aos.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.fancybox.min.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/jquery.sticky.js"></script>
+        <script src="/assets/website/js/frontend/winxraygithub/main.js"></script>
+        <script src="https://www.freeclashnode.com/assets/js/frontend/invite-url.js"></script>
+        <script src="/assets/website/js/frontend/G.js"></script>
+    </div> <!-- .site-wrap -->
+</body>
+
+</html>
