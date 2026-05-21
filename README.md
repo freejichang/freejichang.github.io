@@ -1,4 +1,4 @@
-# 免费机场 | 5月14日20.4M/S|免费VPN/Clash节点/Shadowrocket节点/Singbox节点/SSR节点/V2ray节点免费节点链接地址  更新时间 2026-05-14 08:23:32
+# 免费机场 | 5月21日18.7M/S|免费VPN/Shadowrocket节点/SSR节点/Singbox节点/V2ray节点/Clash节点免费节点链接地址  更新时间 2026-05-21 10:16:41
 所有免费clash节点都爬取自网络，请勿用于非法用途 。节点地址：<a href="https://freejichang.github.io" target="_blank">点击跳转</a>
 
 ## clash使用教程：
@@ -9,23 +9,23 @@
 
 ### 免费Clash节点订阅链接
 
-- https://freejichang.github.io/uploads/2026/05/0-20260514.yaml
-- https://freejichang.github.io/uploads/2026/05/1-20260514.yaml
-- https://freejichang.github.io/uploads/2026/05/2-20260514.yaml
-- https://freejichang.github.io/uploads/2026/05/3-20260514.yaml
-- https://freejichang.github.io/uploads/2026/05/4-20260514.yaml
+- https://freejichang.github.io/uploads/2026/05/0-20260521.yaml
+- https://freejichang.github.io/uploads/2026/05/1-20260521.yaml
+- https://freejichang.github.io/uploads/2026/05/2-20260521.yaml
+- https://freejichang.github.io/uploads/2026/05/3-20260521.yaml
+- https://freejichang.github.io/uploads/2026/05/4-20260521.yaml
 
 ### 免费V2ray节点订阅链接
 
-- https://freejichang.github.io/uploads/2026/05/0-20260514.txt
-- https://freejichang.github.io/uploads/2026/05/1-20260514.txt
-- https://freejichang.github.io/uploads/2026/05/2-20260514.txt
-- https://freejichang.github.io/uploads/2026/05/3-20260514.txt
-- https://freejichang.github.io/uploads/2026/05/4-20260514.txt
+- https://freejichang.github.io/uploads/2026/05/0-20260521.txt
+- https://freejichang.github.io/uploads/2026/05/1-20260521.txt
+- https://freejichang.github.io/uploads/2026/05/2-20260521.txt
+- https://freejichang.github.io/uploads/2026/05/3-20260521.txt
+- https://freejichang.github.io/uploads/2026/05/4-20260521.txt
 
 ### 免费Sing-box节点订阅链接
 
-- https://freejichang.github.io/uploads/2026/05/20260514.json
+- https://freejichang.github.io/uploads/2026/05/20260521.json
 
 ## 更多Clash节点订阅 ：
 
