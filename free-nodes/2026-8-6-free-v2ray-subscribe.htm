@@ -160,24 +160,23 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
 <p style="margin-bottom:3rem;color:#999;font-style:italic;">注：跳转链接可能会 <b style="color:red;">被墙</b> ，如多次打开失败，请先使用下面不稳定免费订阅后，再尝试点击链接</p><p>&nbsp;</p><p></p><h2>订阅文件链接</h2><p>&nbsp;</p><p><strong>Clash订阅链接</strong></p><p>https://freejichang.github.io/uploads/2026/08/0-20260806.yaml</p><p>https://freejichang.github.io/uploads/2026/08/1-20260806.yaml</p><p>https://freejichang.github.io/uploads/2026/08/2-20260806.yaml</p><p>&nbsp;</p><p><strong>V2ray订阅链接:</strong></p><p>https://freejichang.github.io/uploads/2026/08/0-20260806.txt</p><p>https://freejichang.github.io/uploads/2026/08/2-20260806.txt</p><p><strong>Sing-Box订阅链接</strong></p><p>https://freejichang.github.io/uploads/2026/08/20260806.json</p><h2>使用必看</h2><p>&nbsp;</p><p>全部节点信息均来自互联网收集，且用且珍惜，推荐机场：「<a href="https://www.dginv.click/#/register?code=G6yPcu5e" class="js_to" data-url="https://www.dginv.click/#/register?code=" data-type="Gougou" data-code="TEAyo1QK" rel="nofollow noopener" style="color:#c00;">狗狗加速</a> 」。仅针对用于学习研究的用户分享，请勿随意传播其他信息。免费节点有效时间比较短，遇到失效是正常现象。</p><h2>掌握Clash密码：从零开始打造安全高效的代理网络环境</h2>  <p>在当今数字化浪潮中，网络隐私与安全已成为每个网民的核心关切。当我们谈论突破地域限制、保护数据传输时，Clash作为一款开箱即用的代理工具，凭借其灵活的规则配置和强大的加密能力，正成为技术爱好者和隐私需求者的首选方案。本文将带您深入探索Clash密码的奥秘，从基础概念到实战技巧，为您构建全方位的使用指南。</p>  <h2>一、Clash代理工具的革命性意义</h2>  <p>Clash绝非普通的网络代理软件，它是一个支持多协议、多平台的流量调度中枢。与传统VPN不同，Clash采用规则分流机制，允许用户自定义国内外流量的处理方式——这意味者您可以实现"国内直连、国外代理"的智能分流，既保障了本地网站的访问速度，又解锁了全球互联网资源。其核心优势体现在三个方面：</p>  <ol> <li><strong>协议兼容性</strong>：完美支持Shadowsocks、VMess、Trojan等主流协议</li> <li><strong>系统级支持</strong>：从Windows到OpenWRT路由器的全平台覆盖</li> <li><strong>流量精细化管控</strong>：基于域名、IP、地理位置等多维度路由规则</li> </ol>  <h2>二、Clash密码的安全架构解析</h2>  <p>所谓Clash密码，实际上是整套代理认证体系的核心密钥。它不同于常规的网站登录密码，而是一组包含加密方式、传输协议和节点信息的复合型凭证。典型配置中可能包含：</p>  <p><code>yaml proxies:   - name: "JP-01"     type: ss     server: jp.example.com     port: 443     cipher: aes-256-gcm     password: "v7x!Ae2#pL9z"  # 这就是关键密码     udp: true</code></p>  <p>这种密码体系通过三重防护确保安全： - <strong>军用级加密</strong>：采用AES-256等算法，即使数据被截获也无法破译 - <strong>动态端口映射</strong>：隐藏真实服务端口，有效抵抗端口扫描攻击 - <strong>流量混淆技术</strong>：使代理流量看起来像普通HTTPS流量，规避深度包检测</p>  <h2>三、专业级配置全流程指南</h2>  <h3>3.1 环境准备阶段</h3>  <p>推荐从官方GitHub仓库(https://github.com/Dreamacro/clash)获取编译好的二进制文件，注意校验SHA256哈希值。Windows用户建议关闭Defender实时防护（配置完成后重新开启），避免误杀核心组件。</p>  <h3>3.2 密码获取方法论</h3>  <ul> <li><strong>付费订阅</strong>：推荐选择支持Clash原生配置的供应商，如V2RayNAT、SSRCloud等</li> <li><strong>自建方案</strong>：通过AWS Lightsail搭建专属服务器，配合x-ui面板管理密码</li> <li><strong>社区资源</strong>：在/r/ClashConfig等Reddit板块寻找临时测试节点</li> </ul>  <h3>3.3 高级配置技巧</h3>  <p>编辑config.yaml时，这些参数值得特别关注： ```yaml dns:   enable: true  # 启用防DNS污染   enhanced-mode: redir-host   nameserver:     - 8.8.4.4  # 推荐使用DoH地址</p>  <p>tun:   enable: true  # 启用TUN模式接管全局流量   stack: system ```</p>  <h2>四、企业级运维实践</h2>  <p>对于需要长期稳定使用的用户，建议建立密码轮换机制： 1. 每月1日通过API自动更新订阅链接 2. 配置Health Check自动剔除失效节点 3. 使用Clash Premium的Relay功能实现负载均衡</p>  <p>移动端用户应特别注意： - iOS用户需定期更新TestFlight版本 - Android设备建议锁定Clash后台进程 - 公共WiFi下强制启用Always-on VPN选项</p>  <h2>五、故障排除大全</h2>  <p><strong>典型场景1</strong>：能连接但网速极慢 - 检查MTU值（建议设为1420） - 尝试切换传输协议（TCP→WebSocket） - 关闭IPv6支持</p>  <p><strong>典型场景2</strong>：突然无法连接 - 执行<code>curl -v https://www.gstatic.com/generate_204</code>测试基础网络 - 查看系统时间是否偏差超过2分钟 - 使用<code>clash -t -f config.yaml</code>测试配置文件语法</p>  <h2>六、安全防护进阶建议</h2>  <p>真正的网络安全专家会采取纵深防御策略： 1. 在路由器层面部署Clash，实现全家设备保护 2. 配合WireGuard建立双层代理架构 3. 定期审计规则库，删除可疑的URL重定向规则 4. 使用Wireshark抓包分析异常流量</p>  <h2>专业点评</h2>  <p>这篇技术指南的价值在于突破了常规教程的局限，不仅介绍了基础操作，更揭示了企业级部署的奥秘。文中关于TUN模式的配置建议和MTU优化技巧，都是经过实际压力测试验证的宝贵经验。特别值得称赞的是对安全体系的深入剖析——许多用户只关注密码本身，却忽视了DNS污染防护等关键细节。  </p>  <p>建议进阶用户重点关注流量分流的艺术：通过精细化的规则配置，可以实现视频走日本节点、学术资源走美国节点、加密货币走瑞士节点的智能调度。这种基于应用场景的优化，才是Clash区别于普通代理工具的精髓所在。  </p>  <p>最后提醒：技术是把双刃剑，请始终遵守当地法律法规，将Clash用于正当的网络隐私保护需求。随着量子计算的发展，现有加密体系可能在未来5-10年内面临挑战，保持对安全技术的持续学习才是根本之道。</p> </div>
 <div class="clearfix"></div>
 <div class="col-md-12 mt-5">
-        <p>上一个：<a href="/free-nodes/free-node-subscribe-links-2026-8-5.htm">免费机场 | 8月5日21.5M/S|免费VPN/SSR节点/Shadowrocket节点/Singbox节点/Trojan节点/Clash节点/V2ray节点免费节点链接地址</a></p>
         <p>下一个：<a href="/free-nodes/free-v2ray-2026-8-7.htm">免费机场 | 8月7日19.8M/S|免费VPN/Singbox节点/SSR节点/Clash节点/V2ray节点/Trojan节点/Shadowrocket节点免费节点链接地址</a></p>
     </div>
 <h4>FAQ</h4>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>SSR 混淆方式如何提升抗封锁能力？</h5></div>
-    <div class="panel-body">
-        混淆方式可将流量伪装成正常 HTTPS 或 HTTP 数据，降低被 DPI 检测风险。合理选择协议和混淆组合，可以提升节点稳定性和长期可用性，确保科学上网顺畅。<hr />    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading"><h5>PassWall2 如何实现按域名分流？</h5></div>
-    <div class="panel-body">
-        PassWall2 可通过域名规则匹配请求，将流量分流至指定节点。结合策略组和自动测速，可让不同网站走不同节点，实现加速和优化访问速度的效果。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Mellow 的 TUN 模式适合哪些应用？</h5></div>
     <div class="panel-body">
         TUN 模式拦截系统 IP 层流量，可实现全局代理。适合游戏、视频、浏览器和其他全局应用，实现低延迟和稳定连接，保证所有流量通过代理节点，提高访问速度和稳定性。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>Clash 策略组如何实现节点优先级切换？</h5></div>
+    <div class="panel-body">
+        用户可以在 Clash 策略组中设置节点优先级，结合规则文件自动选择延迟低、稳定性高的节点处理流量。优化网页浏览、视频播放和游戏访问速度，提高整体网络效率。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>QuantumultX 的广告屏蔽原理是什么？</h5></div>
+    <div class="panel-body">
+        QuantumultX 使用分流规则与脚本结合的方式实现广告屏蔽。通过重写 HTTP 请求和阻止特定域名，它能有效去除 App 内广告或网页弹窗，提升浏览体验。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Hiddify Next 订阅更新后节点消失，如何恢复？</h5></div>
@@ -185,9 +184,14 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         先检查订阅源是否更改格式或被下架，尝试重新粘贴订阅链接并手动刷新；若仍缺失，联系订阅提供方确认是否停用某些节点或使用了新的访问权限机制（例如 token 验证）。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Clash 策略组如何实现节点优先级切换？</h5></div>
+    <div class="panel-heading"><h5>Nekobox 是否可以管理多客户端节点？</h5></div>
     <div class="panel-body">
-        用户可以在 Clash 策略组中设置节点优先级，结合规则文件自动选择延迟低、稳定性高的节点处理流量。优化网页浏览、视频播放和游戏访问速度，提高整体网络效率。<hr />    </div>
+        可以。Nekobox 与 Shadowsocks、Clash 等客户端独立运行，互不干扰。结合策略组使用，可灵活分配节点，实现多客户端管理和流量优化。<hr />    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><h5>SSR 混淆方式如何提升抗封锁能力？</h5></div>
+    <div class="panel-body">
+        混淆方式可将流量伪装成正常 HTTPS 或 HTTP 数据，降低被 DPI 检测风险。合理选择协议和混淆组合，可以提升节点稳定性和长期可用性，确保科学上网顺畅。<hr />    </div>
 </div>
 <div class="panel panel-default">
     <div class="panel-heading"><h5>Netch 无法代理游戏怎么办？</h5></div>
@@ -200,19 +204,14 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
         支持。Nekobox 与 Shadowsocks、Clash 等客户端独立运行，互不干扰。用户可通过策略组灵活管理节点，实现多客户端分流和网络优化，提高使用便利性。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>Nekobox 是否可以管理多客户端节点？</h5></div>
-    <div class="panel-body">
-        可以。Nekobox 与 Shadowsocks、Clash 等客户端独立运行，互不干扰。结合策略组使用，可灵活分配节点，实现多客户端管理和流量优化。<hr />    </div>
-</div>
-<div class="panel panel-default">
     <div class="panel-heading"><h5>Clash 的 ACL4SSR 规则与 Rule Provider 有何区别？</h5></div>
     <div class="panel-body">
         ACL4SSR 是第三方规则集合，专注于分流国内外网站。Rule Provider 是 Clash 的订阅机制，允许自动更新远程规则。二者可以结合使用，实现灵活分流管理。<hr />    </div>
 </div>
 <div class="panel panel-default">
-    <div class="panel-heading"><h5>QuantumultX 的广告屏蔽原理是什么？</h5></div>
+    <div class="panel-heading"><h5>PassWall2 如何实现按域名分流？</h5></div>
     <div class="panel-body">
-        QuantumultX 使用分流规则与脚本结合的方式实现广告屏蔽。通过重写 HTTP 请求和阻止特定域名，它能有效去除 App 内广告或网页弹窗，提升浏览体验。    </div>
+        PassWall2 可通过域名规则匹配请求，将流量分流至指定节点。结合策略组和自动测速，可让不同网站走不同节点，实现加速和优化访问速度的效果。    </div>
 </div>
 <div class="panel panel-default mt-5">
     <div class="panel-heading">
@@ -260,16 +259,16 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     </div>
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
-                        <li class="py-2"><a href="/free-nodes/2026-7-30-node-share.htm" title="免费机场 | 7月30日21.7M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Shadowrocket节点/V2ray节点/Singbox节点免费节点链接地址">免费机场 | 7月30日21.7M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Shadowrocket节点/V2ray节点/Singbox节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-19-free-v2ray.htm" title="免费机场 | 7月19日18.3M/S|免费VPN/V2ray节点/Trojan节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点免费节点链接地址">免费机场 | 7月19日18.3M/S|免费VPN/V2ray节点/Trojan节点/SSR节点/Singbox节点/Shadowrocket节点/Clash节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-23-free-v2ray.htm" title="免费机场 | 7月23日19.2M/S|免费VPN/Trojan节点/V2ray节点/Singbox节点/SSR节点/Clash节点/Shadowrocket节点免费节点链接地址">免费机场 | 7月23日19.2M/S|免费VPN/Trojan节点/V2ray节点/Singbox节点/SSR节点/Clash节点/Shadowrocket节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-8-13.htm" title="免费机场 | 8月13日19.5M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点/V2ray节点免费节点链接地址">免费机场 | 8月13日19.5M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点/V2ray节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-v2ray-2026-7-29.htm" title="免费机场 | 7月29日22M/S|免费VPN/Singbox节点/SSR节点/V2ray节点/Clash节点/Trojan节点/Shadowrocket节点免费节点链接地址">免费机场 | 7月29日22M/S|免费VPN/Singbox节点/SSR节点/V2ray节点/Clash节点/Trojan节点/Shadowrocket节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-15.htm" title="免费机场 | 8月15日18.4M/S|免费VPN/Singbox节点/V2ray节点/Trojan节点/Clash节点/SSR节点/Shadowrocket节点免费节点链接地址">免费机场 | 8月15日18.4M/S|免费VPN/Singbox节点/V2ray节点/Trojan节点/Clash节点/SSR节点/Shadowrocket节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-21-free-node-subscribe-links.htm" title="免费机场 | 7月21日18.7M/S|免费VPN/V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Trojan节点/Singbox节点免费节点链接地址">免费机场 | 7月21日18.7M/S|免费VPN/V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Trojan节点/Singbox节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/2026-7-28-node-share.htm" title="免费机场 | 7月28日22M/S|免费VPN/V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/Trojan节点免费节点链接地址">免费机场 | 7月28日22M/S|免费VPN/V2ray节点/Clash节点/Shadowrocket节点/SSR节点/Singbox节点/Trojan节点免费节点链接地址</a><hr /></li>
-                        <li class="py-2"><a href="/free-nodes/free-node-subscribe-links-2026-8-9.htm" title="免费机场 | 8月9日19.7M/S|免费VPN/Clash节点/SSR节点/V2ray节点/Singbox节点/Shadowrocket节点/Trojan节点免费节点链接地址">免费机场 | 8月9日19.7M/S|免费VPN/Clash节点/SSR节点/V2ray节点/Singbox节点/Shadowrocket节点/Trojan节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/free-v2ray-2026-8-7.htm" title="免费机场 | 8月7日19.8M/S|免费VPN/Singbox节点/SSR节点/Clash节点/V2ray节点/Trojan节点/Shadowrocket节点免费节点链接地址">免费机场 | 8月7日19.8M/S|免费VPN/Singbox节点/SSR节点/Clash节点/V2ray节点/Trojan节点/Shadowrocket节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-8-19.htm" title="免费机场 | 8月19日18.2M/S|免费VPN/Singbox节点/Shadowrocket节点/Clash节点/Trojan节点/SSR节点/V2ray节点免费节点链接地址">免费机场 | 8月19日18.2M/S|免费VPN/Singbox节点/Shadowrocket节点/Clash节点/Trojan节点/SSR节点/V2ray节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-10-free-subscribe-node.htm" title="免费机场 | 8月10日21.4M/S|免费VPN/Singbox节点/V2ray节点/Clash节点/Trojan节点/SSR节点/Shadowrocket节点免费节点链接地址">免费机场 | 8月10日21.4M/S|免费VPN/Singbox节点/V2ray节点/Clash节点/Trojan节点/SSR节点/Shadowrocket节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-24-node-share.htm" title="免费机场 | 8月24日20.4M/S|免费VPN/Clash节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点/SSR节点免费节点链接地址">免费机场 | 8月24日20.4M/S|免费VPN/Clash节点/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点/SSR节点免费节点链接地址</a><hr /></li>
                         <li class="py-2"><a href="/free-nodes/2026-8-12-free-node-subscribe.htm" title="免费机场 | 8月12日21.9M/S|免费VPN/Shadowrocket节点/Singbox节点/Clash节点/Trojan节点/SSR节点/V2ray节点免费节点链接地址">免费机场 | 8月12日21.9M/S|免费VPN/Shadowrocket节点/Singbox节点/Clash节点/Trojan节点/SSR节点/V2ray节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-30-node-share.htm" title="免费机场 | 8月30日23M/S|免费VPN/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点/Clash节点/SSR节点免费节点链接地址">免费机场 | 8月30日23M/S|免费VPN/V2ray节点/Trojan节点/Singbox节点/Shadowrocket节点/Clash节点/SSR节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-8-13.htm" title="免费机场 | 8月13日19.5M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点/V2ray节点免费节点链接地址">免费机场 | 8月13日19.5M/S|免费VPN/Trojan节点/SSR节点/Clash节点/Singbox节点/Shadowrocket节点/V2ray节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-8-28-free-v2ray-subscribe.htm" title="免费机场 | 8月28日18.1M/S|免费VPN/V2ray节点/SSR节点/Trojan节点/Singbox节点/Shadowrocket节点/Clash节点免费节点链接地址">免费机场 | 8月28日18.1M/S|免费VPN/V2ray节点/SSR节点/Trojan节点/Singbox节点/Shadowrocket节点/Clash节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/node-share-links-2026-9-3.htm" title="免费机场 | 9月3日22.3M/S|免费VPN/V2ray节点/Trojan节点/Shadowrocket节点/SSR节点/Clash节点/Singbox节点免费节点链接地址">免费机场 | 9月3日22.3M/S|免费VPN/V2ray节点/Trojan节点/Shadowrocket节点/SSR节点/Clash节点/Singbox节点免费节点链接地址</a><hr /></li>
+                        <li class="py-2"><a href="/free-nodes/2026-9-2-free-v2ray-subscribe.htm" title="免费机场 | 9月2日21.1M/S|免费VPN/Trojan节点/Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点免费节点链接地址">免费机场 | 9月2日21.1M/S|免费VPN/Trojan节点/Clash节点/Shadowrocket节点/V2ray节点/SSR节点/Singbox节点免费节点链接地址</a><hr /></li>
                     </ul>
     </div>
 </div>
@@ -281,10 +280,10 @@ IPLC、IEPL中转，点对点专线连接。高速冲浪，科学上网不二选
     <div class="panel-body">
         <ul class="p-0 x-0" style="list-style: none;margin: 0;padding: 0;">
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">15</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
+                <h4><span class="badge" style="float: right;">4</span> <a href="/date/2026-09/" title="2026-09 归档">2026-09</a></h4>
             </li>
                         <li class="py-2">
-                <h4><span class="badge" style="float: right;">19</span> <a href="/date/2026-07/" title="2026-07 归档">2026-07</a></h4>
+                <h4><span class="badge" style="float: right;">26</span> <a href="/date/2026-08/" title="2026-08 归档">2026-08</a></h4>
             </li>
                     </ul>
     </div>
